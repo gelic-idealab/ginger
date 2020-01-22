@@ -17,17 +17,17 @@ func main() {
 		log.Println(err)
 	}
 
-	var path = flag.String("p", cwd, "the path to the directory of 360 images")
-	var columns = flag.Int("c", 1, "the number of columns in the image matrix")
-	var rows = flag.Int("r", 1, "the number of rows in the image matrix")
+	dir := flag.String("p", cwd, "the path to the directory of 360 images")
+	title := flag.String("t", "360 Tour", "the title for the generated tour")
+	columns := flag.Int("c", 1, "the number of columns in the image matrix")
+	rows := flag.Int("r", 1, "the number of rows in the image matrix")
 
 	flag.Parse()
-	fmt.Println(*path, *columns, *rows)
+	fmt.Println(*dir, *columns, *rows, *title)
 
 	var files []string
 
-	root := *path
-	pathErr := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+	pathErr := filepath.Walk(*dir, func(path string, info os.FileInfo, err error) error {
 		files = append(files, path)
 		return nil
 	})
