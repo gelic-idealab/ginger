@@ -26,6 +26,7 @@ func main() {
 	fmt.Println(*dir, *columns, *rows, *title)
 
 	var files []string
+	fileCounter := 0
 
 	pathErr := filepath.Walk(*dir, func(path string, info os.FileInfo, err error) error {
 		files = append(files, path)
@@ -36,5 +37,8 @@ func main() {
 	}
 	for _, file := range files {
 		fmt.Println(file)
+		fileCounter++
 	}
+
+	fmt.Println("Number of files:", fileCounter)
 }
