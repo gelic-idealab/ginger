@@ -5,9 +5,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
 )
 
 func main() {
@@ -26,7 +28,7 @@ func main() {
 	fmt.Println(*dir, *columns, *rows, *title)
 
 	var files []string
-	fileCounter := 0
+	var fileCounter = -1
 
 	pathErr := filepath.Walk(*dir, func(path string, info os.FileInfo, err error) error {
 		files = append(files, path)
@@ -41,4 +43,44 @@ func main() {
 	}
 
 	fmt.Println("Number of files:", fileCounter)
+
+	matrixRows := fileCounter / *columns
+	fmt.Println("image matrix is:", matrixRows, "by", *columns)
+
+	for r := 0; r < matrixRows; r++ {
+		for c := 0; c < *columns; c++ {
+			fmt.Println(r, c)
+		}
+	}
+
+	var p string
+	p = "img/1.jpg"
+	var np string
+	np = copyImg(p, 1, 1)
+	fmt.Println("new img path:", np)
+
+}
+
+func copyImg(path string, r int, c int) string {
+	from, err := os.Open(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer from.Close()
+
+	var newPath string
+	newPath = strconv.Itoa(r) + "_" + strconv.Itoa(c) + ".jpg"
+
+	to, err := os.OpenFile(newPath, os.O_RDWR|os.O_CREATE, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer to.Close()
+
+	_, err = io.Copy(to, from)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return newPath
 }
