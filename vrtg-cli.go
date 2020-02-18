@@ -20,6 +20,8 @@ func main() {
 	OUTPUT_STATIC := OUTPUT + "static/"
 	OUTPUT_IMG_DIR := OUTPUT_STATIC + "img/"
 
+	IMG_STATIC_REL_PATH := "static/img/"
+
 	TEMPLATES := "templates/"
 	TEMPLATES_STATIC := TEMPLATES + "static/"
 
@@ -69,6 +71,7 @@ func main() {
 		}
 	}
 
+	fmt.Println("Copy static assets -->", OUTPUT_STATIC)
 	var static_files []string
 	ts_pathErr := filepath.Walk(TEMPLATES_STATIC, func(path string, info os.FileInfo, err error) error {
 		static_files = append(static_files, path)
@@ -81,7 +84,7 @@ func main() {
 	for p := 1; p < len(static_files); p++ {
 		filename := strings.Replace(static_files[p], "templates", "out", 1)
 		copyFile(static_files[p], filename)
-		fmt.Println(static_files[p], "-->", filename)
+		// fmt.Println(static_files[p], "-->", filename)
 	}
 
 	fmt.Println("Format and generate index.html...")
@@ -90,7 +93,7 @@ func main() {
 
 	html := strings.Replace(htmlTemplateText, "{{num_rows}}", strconv.Itoa(matrixRows), 1)
 	html = strings.Replace(html, "{{num_cols}}", strconv.Itoa(*columns), 1)
-	html = strings.Replace(html, "{{img_dir}}", "'"+OUTPUT_IMG_DIR+"'", 1)
+	html = strings.Replace(html, "{{img_dir}}", "'"+IMG_STATIC_REL_PATH+"'", 1)
 	html = strings.Replace(html, "{{img_ext}}", "'.jpg'", 1)
 	html = strings.Replace(html, "{{title}}", *title, 1)
 
