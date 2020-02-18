@@ -47,17 +47,14 @@ func main() {
 	matrixRows := fileCounter / *columns
 	fmt.Println("image matrix is:", matrixRows, "by", *columns)
 
+	var fileIndex = 1
 	for r := 0; r < matrixRows; r++ {
 		for c := 0; c < *columns; c++ {
 			fmt.Println(r, c)
+			copyImg(files[fileIndex], r, c)
+			fileIndex++
 		}
 	}
-
-	var p string
-	p = "img/1.jpg"
-	var np string
-	np = copyImg(p, 1, 1)
-	fmt.Println("new img path:", np)
 
 }
 
