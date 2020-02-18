@@ -21,7 +21,7 @@ function loadImages(numberOfRows,numberOfColumns,fileLocation,image_type, is_fil
 
         for (var i = 1; i <= numberOfColumns; i++) {
             for (j = 1; j <= numberOfRows; j++) {
-                img = fileLocation + "/" + j + "_" + i + "." + image_type;
+                img = fileLocation + j + "_" + i + image_type;
                 if (i == 1) {
                     backward = null;
                 } else {

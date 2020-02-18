@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -19,6 +20,9 @@ func main() {
 	// if err != nil {
 	// 	log.Println(err)
 	// }
+
+	outputDir := "static/"
+	outputImgDir := outputDir + "img/"
 
 	dir := flag.String("p", "NONE", "the path to the directory of 360 images")
 	title := flag.String("t", "360 Tour", "the title for the generated tour")
@@ -54,17 +58,31 @@ func main() {
 	fmt.Println("Image matrix is:", matrixRows, "by", *columns)
 
 	var fileIndex = 1
-	for r := 0; r < matrixRows; r++ {
-		for c := 0; c < *columns; c++ {
+	for r := 1; r <= matrixRows; r++ {
+		for c := 1; c <= *columns; c++ {
 			fmt.Println(r, c)
-			copyImg(files[fileIndex], r, c)
+			copyImg(outputImgDir, files[fileIndex], r, c)
 			fileIndex++
 		}
 	}
 
+	htmlTemplatePath := "template.html"
+	htmlTemplateText := readHtmlTemplate(htmlTemplatePath)
+
+	html := strings.Replace(htmlTemplateText, "{{num_rows}}", strconv.Itoa(matrixRows), 1)
+	html = strings.Replace(html, "{{num_cols}}", strconv.Itoa(*columns), 1)
+	html = strings.Replace(html, "{{img_dir}}", "'"+outputImgDir+"'", 1)
+	html = strings.Replace(html, "{{img_ext}}", "'.jpg'", 1)
+	fmt.Println(html)
+
+	err := ioutil.WriteFile("index.html", []byte(html), 0644)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 }
 
-func copyImg(path string, r int, c int) string {
+func copyImg(outputImgDir string, path string, r int, c int) string {
 	from, err := os.Open(path)
 	if err != nil {
 		log.Fatal(err)
@@ -74,7 +92,7 @@ func copyImg(path string, r int, c int) string {
 	ext := strings.Split(path, ".")
 
 	var newPath string
-	newPath = strconv.Itoa(r) + "_" + strconv.Itoa(c) + "." + ext[1]
+	newPath = outputImgDir + strconv.Itoa(r) + "_" + strconv.Itoa(c) + "." + ext[1]
 
 	to, err := os.OpenFile(newPath, os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
@@ -88,4 +106,15 @@ func copyImg(path string, r int, c int) string {
 	}
 
 	return newPath
+}
+
+func readHtmlTemplate(path string) string {
+	content, err := ioutil.ReadFile(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Convert []byte to string and print to screen
+	text := string(content)
+	return text
 }
