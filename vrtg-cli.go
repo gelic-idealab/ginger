@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -65,8 +66,10 @@ func copyImg(path string, r int, c int) string {
 	}
 	defer from.Close()
 
+	ext := strings.Split(path, ".")
+
 	var newPath string
-	newPath = strconv.Itoa(r) + "_" + strconv.Itoa(c) + ".jpg"
+	newPath = strconv.Itoa(r) + "_" + strconv.Itoa(c) + "." + ext[1]
 
 	to, err := os.OpenFile(newPath, os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
