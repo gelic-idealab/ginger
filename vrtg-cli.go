@@ -15,18 +15,23 @@ import (
 
 func main() {
 
-	cwd, err := os.Getwd()
-	if err != nil {
-		log.Println(err)
-	}
+	// cwd, err := os.Getwd()
+	// if err != nil {
+	// 	log.Println(err)
+	// }
 
-	dir := flag.String("p", cwd, "the path to the directory of 360 images")
+	dir := flag.String("p", "NONE", "the path to the directory of 360 images")
 	title := flag.String("t", "360 Tour", "the title for the generated tour")
 	columns := flag.Int("c", 1, "the number of columns in the image matrix")
 	rows := flag.Int("r", 1, "the number of rows in the image matrix")
 
 	flag.Parse()
-	fmt.Println(*dir, *columns, *rows, *title)
+	fmt.Println("args:", *dir, *columns, *rows, *title)
+
+	if *dir == "NONE" {
+		fmt.Println("please provide the path to the image directory")
+		os.Exit(2)
+	}
 
 	var files []string
 	var fileCounter = -1
@@ -35,7 +40,7 @@ func main() {
 		files = append(files, path)
 		return nil
 	})
-	if err != nil {
+	if pathErr != nil {
 		panic(pathErr)
 	}
 	for _, file := range files {
@@ -46,7 +51,7 @@ func main() {
 	fmt.Println("Number of files:", fileCounter)
 
 	matrixRows := fileCounter / *columns
-	fmt.Println("image matrix is:", matrixRows, "by", *columns)
+	fmt.Println("Image matrix is:", matrixRows, "by", *columns)
 
 	var fileIndex = 1
 	for r := 0; r < matrixRows; r++ {
