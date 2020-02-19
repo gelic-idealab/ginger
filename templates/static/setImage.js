@@ -23,9 +23,9 @@ AFRAME.registerComponent('set-image', {
             if(current[data.src.split('-')[1]] != null) {
                 // Fade out image.
                 data.target.emit('fade');
-                console.log(data);
-                console.log(el);
-                console.log(current);
+                // console.log(data);
+                // console.log(el);
+                // console.log(current);
                 // Wait for fade to complete.
                 setTimeout(function () {
                     // Set image.

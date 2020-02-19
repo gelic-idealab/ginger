@@ -9,7 +9,7 @@ function loadImages(numberOfRows,numberOfColumns,fileLocation,image_type, is_fil
         //{{path|tojson}};
         var image_type = image_type;
 
-        console.log(numberOfRows + " " + numberOfColumns + " " + fileLocation + " " + image_type);
+        // console.log(numberOfRows + " " + numberOfColumns + " " + fileLocation + " " + image_type);
 
         var img, right, left, forward, backward, row_num, col_num;
 
@@ -51,7 +51,7 @@ function loadImages(numberOfRows,numberOfColumns,fileLocation,image_type, is_fil
                 listOfFiles[j + '_' + i] = {img: img, left: left, right: right, backward: backward, forward: forward};
             }
         }
-        console.log(listOfFiles);
+        // console.log(listOfFiles);
 
         var start = listOfFiles['1_1'];
         current = start;
