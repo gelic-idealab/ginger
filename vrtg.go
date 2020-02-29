@@ -64,13 +64,6 @@ func main() {
 	fmt.Println("Image matrix is:", matrixRows, "row(s) by", *columns, "column(s)")
 
 	var fileIndex = 1
-	// fmt.Println("Copy and rename images -->", OUTPUT_IMG_DIR)
-	// for r := 1; r <= matrixRows; r++ {
-	// 	for c := 1; c <= *columns; c++ {
-	// 		copyAndRenameImg(OUTPUT_IMG_DIR, files[fileIndex], r, c)
-	// 		fileIndex++
-	// 	}
-	// }
 
 	row_counter := 1
 	column_counter := 1
@@ -112,7 +105,6 @@ func main() {
 	for p := 1; p < len(static_files); p++ {
 		filename := strings.Replace(static_files[p], "templates", "out", 1)
 		copyFile(static_files[p], filename)
-		// fmt.Println(static_files[p], "-->", filename)
 	}
 
 	fmt.Println("Format and generate index.html...")
@@ -134,7 +126,7 @@ func main() {
 
 
 	if (*serve) {
-		// Set up the handler to serve a file
+		// Set up the handler to serve the generated files
 		fs := http.FileServer(http.Dir("out"))
 		http.Handle("/", fs)
 
