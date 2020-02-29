@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"net/http"
 )
 
 func main() {
@@ -30,7 +31,7 @@ func main() {
 	dir := flag.String("p", "NONE", "the path to the directory of 360 images")
 	title := flag.String("t", "360 Tour", "the title for the generated tour")
 	columns := flag.Int("c", 1, "the number of columns in the image matrix")
-	// rows := flag.Int("r", 1, "the number of rows in the image matrix")
+	serve := flag.Bool("s", false, "serve generated package on localhost")
 
 	flag.Parse()
 	// fmt.Println("args:", *dir, *columns, *rows, *title)
@@ -131,7 +132,17 @@ func main() {
 
 	fmt.Println("Done.")
 
+
+	if (*serve) {
+		// Set up the handler to serve a file
+		fs := http.FileServer(http.Dir("out"))
+		http.Handle("/", fs)
+
+		log.Printf("Serving. Go to https://127.0.0.1:8443/")
+		log.Fatal(http.ListenAndServeTLS(":8443", "cert.pem", "key.pem", nil))
+	}
 }
+
 
 func copyAndRenameImg(outputImgDir string, path string, r int, c int) string {
 	ext := strings.Split(path, ".")
