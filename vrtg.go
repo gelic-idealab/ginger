@@ -63,11 +63,38 @@ func main() {
 	fmt.Println("Image matrix is:", matrixRows, "row(s) by", *columns, "column(s)")
 
 	var fileIndex = 1
-	fmt.Println("Copy and rename images -->", OUTPUT_IMG_DIR)
-	for r := 1; r <= matrixRows; r++ {
-		for c := 1; c <= *columns; c++ {
-			copyAndRenameImg(OUTPUT_IMG_DIR, files[fileIndex], r, c)
-			fileIndex++
+	// fmt.Println("Copy and rename images -->", OUTPUT_IMG_DIR)
+	// for r := 1; r <= matrixRows; r++ {
+	// 	for c := 1; c <= *columns; c++ {
+	// 		copyAndRenameImg(OUTPUT_IMG_DIR, files[fileIndex], r, c)
+	// 		fileIndex++
+	// 	}
+	// }
+
+	row_counter := 1
+	column_counter := 1
+	is_incrementing := true
+	for f := 0; f < fileCounter; f++ {
+        if (row_counter <= matrixRows) {
+            if (column_counter <= *columns) {
+				copyAndRenameImg(OUTPUT_IMG_DIR, files[fileIndex], row_counter, column_counter)
+				fileIndex++
+				if (is_incrementing) {
+					if (row_counter < matrixRows) {
+						row_counter += 1
+					} else {
+						column_counter += 1
+						is_incrementing = false
+					}
+				} else {
+					if (row_counter > 1) {
+						row_counter -= 1
+					} else {
+						column_counter += 1
+						is_incrementing = true
+					}
+				}
+			}
 		}
 	}
 
