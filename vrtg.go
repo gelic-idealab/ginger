@@ -126,8 +126,8 @@ func main() {
 		fs := http.FileServer(http.Dir("out"))
 		http.Handle("/", fs)
 
-		log.Printf("Serving. Go to https://127.0.0.1:8443/")
-		log.Fatal(http.ListenAndServeTLS(":8443", "cert.pem", "key.pem", nil))
+		fmt.Println("Serving. Go to https://127.0.0.1:8443/")
+		http.ListenAndServeTLS(":8443", "cert.pem", "key.pem", nil)
 	}
 }
 
