@@ -8,11 +8,11 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
-	"net/http"
 )
 
 func main() {
@@ -34,7 +34,6 @@ func main() {
 	serve := flag.Bool("s", false, "serve generated package on localhost")
 
 	flag.Parse()
-	// fmt.Println("args:", *dir, *columns, *rows, *title)
 
 	if *dir == "NONE" {
 		fmt.Println("please provide the path to the image directory")
@@ -69,19 +68,19 @@ func main() {
 	column_counter := 1
 	is_incrementing := true
 	for f := 0; f < fileCounter; f++ {
-        if (row_counter <= matrixRows) {
-            if (column_counter <= *columns) {
+		if row_counter <= matrixRows {
+			if column_counter <= *columns {
 				copyAndRenameImg(OUTPUT_IMG_DIR, files[fileIndex], row_counter, column_counter)
 				fileIndex++
-				if (is_incrementing) {
-					if (row_counter < matrixRows) {
+				if is_incrementing {
+					if row_counter < matrixRows {
 						row_counter += 1
 					} else {
 						column_counter += 1
 						is_incrementing = false
 					}
 				} else {
-					if (row_counter > 1) {
+					if row_counter > 1 {
 						row_counter -= 1
 					} else {
 						column_counter += 1
@@ -124,8 +123,7 @@ func main() {
 
 	fmt.Println("Done.")
 
-
-	if (*serve) {
+	if *serve {
 		// Set up the handler to serve the generated files
 		fs := http.FileServer(http.Dir("out"))
 		http.Handle("/", fs)
@@ -134,7 +132,6 @@ func main() {
 		log.Fatal(http.ListenAndServeTLS(":8443", "cert.pem", "key.pem", nil))
 	}
 }
-
 
 func copyAndRenameImg(outputImgDir string, path string, r int, c int) string {
 	ext := strings.Split(path, ".")
