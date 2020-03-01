@@ -52,18 +52,16 @@ func main() {
 		panic(pathErr)
 	}
 
-	fmt.Println("Number of files:", fileCounter)
-
 	var matrixRows int
 	if *columns > 1 {
 		matrixRows = fileCounter / *columns
 	} else {
 		matrixRows = fileCounter
 	}
-	fmt.Println("Image matrix is:", matrixRows, "row(s) by", *columns, "column(s)")
+	fmt.Println("Image layout is:", matrixRows, "row(s) by", *columns, "column(s):", fileCounter, "images")
 
-	var fileIndex = 1
-
+	fmt.Println("Copy and rename images -->", OUTPUT_IMG_DIR)
+	fileIndex := 1
 	row_counter := 1
 	column_counter := 1
 	is_incrementing := true
