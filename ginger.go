@@ -23,6 +23,7 @@ func main() {
 	columns := flag.Int("c", 1, "the number of columns in the image matrix")
 	serve := flag.Bool("s", false, "serve generated package on localhost")
 	reverse := flag.Bool("r", false, "reverse the order of images in the target directory")
+	outputDir := flag.String("o", "out", "the directory to output generated files to")
 
 	flag.Parse()
 
@@ -31,7 +32,7 @@ func main() {
 		os.Exit(2)
 	}
 
-	OUTPUT := *title
+	OUTPUT := path.Join(*outputDir, *title)
 	OUTPUT_STATIC := path.Join(OUTPUT, "static")
 	OUTPUT_IMG_DIR := path.Join(OUTPUT_STATIC, "img")
 
@@ -113,7 +114,7 @@ func main() {
 	}
 
 	for p := 1; p < len(static_files); p++ {
-		filename := strings.Replace(static_files[p], "templates", *title, 1)
+		filename := strings.Replace(static_files[p], "templates", OUTPUT, 1)
 		copyFile(static_files[p], filename)
 	}
 
