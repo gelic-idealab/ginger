@@ -1,9 +1,10 @@
-# vrtg
-A command line tool to generate web-based VR tours from a directory of 360 photos. 
+# Ginger includes
+- a command line tool to generate web-embeddable 360/VR tours from a directory of 360 photos. 
+- a desktop application to preview, edit, and annotate the tours. 
 
 ## Usage
 ```
-./vrtg.exe -p test/ -t "My VR Building Tour"
+./ginger.exe -p test/ -t "My VR Building Tour"
 ```
 ## Dev server
 To use the -s (serve) argument, you must first generate self-signed certificates. You can use the cert.sh script to do this. 
