@@ -1,72 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset='utf-8'>
-<title>360 Tour</title>
-<meta name='description' content='360&deg; Image - A-Frame'>
-<script src='https://aframe.io/releases/1.0.4/aframe.min.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-<script src='static/assignImageObject.js' type='text/javascript'></script>
-<script src='static/setImage.js' type='text/javascript'></script>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>Hello World!</title>
+  </head>
+  <body>
+  <button id="new-window">Load</button>
 
-</head>
-<body onload=loadImages(3,2,'static/img/','.jpg')>
-
-
-<a-scene>
-
-  <a-assets id='preloaded'>
-    <img id='arrow-thumb' crossorigin='anonymous' src='static/arrow.png'>
-    <img id='this-image' crossorigin='anonymous' >
-
-    <audio id='click-sound' crossorigin='anonymous' src='static/click.ogg'></audio>
-
-    <!-- Image link template to be reused. -->
-    <script id='link' type='text/html'>
-      <a-entity class='link'
-        geometry='primitive: plane; height: 0.5; width: 1'
-        material='shader: flat; src: ${thumb}; alphaTest: 0.5; opacity: 0.6'
-        event-set__1='_event: mousedown; scale: 1 1 1'
-        event-set__2='_event: mouseup; scale: 1.2 1.2 1'
-        event-set__3='_event: mouseenter; scale: 1.2 1.2 1'
-        event-set__4='_event: mouseleave; scale: 1 1 1'
-        set-image='on: click; target: #image-current; src: ${src}'
-        sound='on: click; src: #click-sound'></a-entity>
-    </script>
-  </a-assets>
-
-<a-sky src='#this-image' id='image-current' animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 500; startEvents: fade"
-  animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 500; startEvents: animationcomplete__fade"></a-sky>
-
-<!-- Image links. -->
- <a-entity id='goRightLink' layout='type: line; margin: 1.5' position='6 -1.2 0' rotation='0 270 0' scale='' visible='visible'>
-  <a-entity template='src: #link' data-src='#arrow-right' data-thumb='#arrow-thumb'  >
-      <a-entity class='link' geometry='primitive: plane; height: 0.5; width: 1' material='shader: flat; src: #arrow-thumb; alphaTest: 0.5; opacity: 0.6' event-set__1='_event: mousedown; scale: 1 1 1' event-set__2='_event: mouseup; scale: 1.2 1.2 1' event-set__3='_event: mouseenter; scale: 1.2 1.2 1' event-set__4='_event: mouseleave; scale: 1 1 1' set-image='on: click; target: #image-current; src: #arrow-right' sound='on: click; src: #click-sound'  ></a-entity>
-  </a-entity>
-</a-entity>
-<a-entity id='goLeftLink' layout='type: line; margin: 1.5' position='-6 -1.2 0' rotation='0 90 0' scale='' visible=''>
-    <a-entity template='src: #link' data-src='#arrow-left' data-thumb='#arrow-thumb'  >
-        <a-entity class='link' geometry='primitive: plane; height: 0.5; width: 1' material='shader: flat; src: #arrow-thumb; alphaTest: 0.5; opacity: 0.6' event-set__1='_event: mousedown; scale: 1 1 1' event-set__2='_event: mouseup; scale: 1.2 1.2 1' event-set__3='_event: mouseenter; scale: 1.2 1.2 1' event-set__4='_event: mouseleave; scale: 1 1 1' set-image='on: click; target: #image-current; src: #arrow-left' sound='on: click; src: #click-sound'  ></a-entity>
-    </a-entity>
-  </a-entity>
-  <a-entity id='goForwardLink' layout='type: line; margin: 1.5' position='0 -1.2 -6' rotation='0 0 0' visible='' scale=''>
-    <a-entity template='src: #link' data-src='#arrow-forward' data-thumb='#arrow-thumb'  >
-        <a-entity class='link' geometry='primitive: plane; height: 0.5; width: 1' material='shader: flat; src: #arrow-thumb; alphaTest: 0.5; opacity: 0.6' event-set__1='_event: mousedown; scale: 1 1 1' event-set__2='_event: mouseup; scale: 1.2 1.2 1' event-set__3='_event: mouseenter; scale: 1.2 1.2 1' event-set__4='_event: mouseleave; scale: 1 1 1' set-image='on: click; target: #image-current; src: #arrow-forward' sound='on: click; src: #click-sound'  ></a-entity>
-    </a-entity>
-  </a-entity>
-  <a-entity id='goBackwardLink' layout='type: line; margin: 1.5' position='0 -1.2 6' rotation='0 180 0' visible='visible' scale=''>
-    <a-entity template='src: #link' data-src='#arrow-backward' data-thumb='#arrow-thumb'  >
-        <a-entity class='link' geometry='primitive: plane; height: 0.5; width: 1' material='shader: flat; src: #arrow-thumb; alphaTest: 0.5; opacity: 0.6' event-set__1='_event: mousedown; scale: 1 1 1' event-set__2='_event: mouseup; scale: 1.2 1.2 1' event-set__3='_event: mouseenter; scale: 1.2 1.2 1' event-set__4='_event: mouseleave; scale: 1 1 1' set-image='on: click; target: #image-current; src: #arrow-backward' sound='on: click; src: #click-sound'  ></a-entity>
-    </a-entity>
-  </a-entity>
-<a-camera>
-   <a-cursor id='cursor' animation__mouseenter="property: components.material.material.color; type: color; to: green; startEvents: mouseenter; dur: 100";
-
-    animation__mouseleave="property: components.material.material.color; type: color; to: black; startEvents: mouseleave; dur: 100";
-
-    fuse='true' raycaster='objects: .link'   material='' line='' cursor='' geometry=''> 
-  </a-camera>
-</a-scene>
-
-</body>
+    <!-- You can also require other files to run in this process -->
+    <script src="./renderer.js"></script>
+  </body>
 </html>
