@@ -10,23 +10,13 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path"
 	"path/filepath"
 	"strconv"
 	"strings"
 )
 
 func main() {
-
-	OUTPUT := "out/"
-	OUTPUT_STATIC := OUTPUT + "static/"
-	OUTPUT_IMG_DIR := OUTPUT_STATIC + "img/"
-
-	IMG_STATIC_REL_PATH := "static/img/"
-
-	TEMPLATES := "templates/"
-	TEMPLATES_STATIC := TEMPLATES + "static/"
-
-	_ = os.MkdirAll(OUTPUT_IMG_DIR, 0666)
 
 	dir := flag.String("p", "NONE", "the path to the directory of 360 images")
 	title := flag.String("t", "360 Tour", "the title for the generated tour")
@@ -39,6 +29,17 @@ func main() {
 		fmt.Println("please provide the path to the image directory")
 		os.Exit(2)
 	}
+
+	OUTPUT := *title
+	OUTPUT_STATIC := path.Join(OUTPUT, "static")
+	OUTPUT_IMG_DIR := path.Join(OUTPUT_STATIC, "img")
+
+	IMG_STATIC_REL_PATH := "static/img/"
+
+	TEMPLATES := "templates"
+	TEMPLATES_STATIC := path.Join(TEMPLATES, "static")
+
+	_ = os.MkdirAll(OUTPUT_IMG_DIR, 0666)
 
 	var files []string
 	var fileCounter = -1
@@ -100,12 +101,12 @@ func main() {
 	}
 
 	for p := 1; p < len(static_files); p++ {
-		filename := strings.Replace(static_files[p], "templates", "out", 1)
+		filename := strings.Replace(static_files[p], "templates", *title, 1)
 		copyFile(static_files[p], filename)
 	}
 
 	fmt.Println("Format and generate index.html...")
-	htmlTemplatePath := TEMPLATES + "template.html"
+	htmlTemplatePath := path.Join(TEMPLATES, "template.html")
 	htmlTemplateText := readHtmlTemplate(htmlTemplatePath)
 
 	html := strings.Replace(htmlTemplateText, "{{num_rows}}", strconv.Itoa(matrixRows), 1)
@@ -114,7 +115,7 @@ func main() {
 	html = strings.Replace(html, "{{img_ext}}", "'.jpg'", 1)
 	html = strings.Replace(html, "{{title}}", *title, 1)
 
-	err := ioutil.WriteFile(OUTPUT+"index.html", []byte(html), 0644)
+	err := ioutil.WriteFile(path.Join(OUTPUT, "index.html"), []byte(html), 0644)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -123,7 +124,7 @@ func main() {
 
 	if *serve {
 		// Set up the handler to serve the generated files
-		fs := http.FileServer(http.Dir("out"))
+		fs := http.FileServer(http.Dir(*title))
 		http.Handle("/", fs)
 
 		fmt.Println("Serving. Go to https://127.0.0.1:8443/")
@@ -131,11 +132,11 @@ func main() {
 	}
 }
 
-func copyAndRenameImg(outputImgDir string, path string, r int, c int) string {
-	ext := strings.Split(path, ".")
+func copyAndRenameImg(outputImgDir string, srcPath string, r int, c int) string {
+	ext := strings.Split(srcPath, ".")
 	var newPath string
-	newPath = outputImgDir + strconv.Itoa(r) + "_" + strconv.Itoa(c) + "." + ext[1]
-	copyFile(path, newPath)
+	newPath = path.Join(outputImgDir, strconv.Itoa(r)+"_"+strconv.Itoa(c)+"."+ext[1])
+	copyFile(srcPath, newPath)
 	return newPath
 }
 
