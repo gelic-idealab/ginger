@@ -22,6 +22,7 @@ func main() {
 	title := flag.String("t", "360 Tour", "the title for the generated tour")
 	columns := flag.Int("c", 1, "the number of columns in the image matrix")
 	serve := flag.Bool("s", false, "serve generated package on localhost")
+	reverse := flag.Bool("r", false, "reverse the order of images in the target directory")
 
 	flag.Parse()
 
@@ -53,6 +54,9 @@ func main() {
 		panic(pathErr)
 	}
 
+	// pop directory off the front of files slice
+	_, files = files[0], files[1:]
+
 	var matrixRows int
 	if *columns > 1 {
 		matrixRows = fileCounter / *columns
@@ -62,10 +66,18 @@ func main() {
 	fmt.Println("Image layout is:", matrixRows, "row(s) by", *columns, "column(s):", fileCounter, "images")
 
 	fmt.Println("Copy and rename images -->", OUTPUT_IMG_DIR)
-	fileIndex := 1
+	fileIndex := 0
 	row_counter := 1
 	column_counter := 1
 	is_incrementing := true
+
+	if *reverse {
+		for i := len(files)/2 - 1; i >= 0; i-- {
+			opp := len(files) - 1 - i
+			files[i], files[opp] = files[opp], files[i]
+		}
+	}
+
 	for f := 0; f < fileCounter; f++ {
 		if row_counter <= matrixRows {
 			if column_counter <= *columns {
