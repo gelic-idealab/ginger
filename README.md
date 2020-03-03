@@ -1,10 +1,10 @@
-# Ginger includes
+## Ginger includes
 - a command line tool to generate web-embeddable 360/VR tours from a directory of 360 photos. 
 - a desktop application to preview, edit, and annotate the tours. 
 
 ## Usage
 ```
-./ginger.exe -p test/ -t "My VR Building Tour"
+./ginger.exe -p /path/to/images/ -t "My VR Building Tour"
 ```
 ## Flags
 ```
