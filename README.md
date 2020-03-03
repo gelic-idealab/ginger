@@ -4,14 +4,16 @@
 
 ## Usage
 ```
-./ginger.exe -p /path/to/images/ -t "My VR Building Tour"
+./ginger.exe -p /path/to/images/ -t "My Tour Title"
 ```
 ## Flags
 ```
--p  Path to the directory of 360 images to be used
--t  Custom title to be displayed on the loading page
 -c  Number of columns in the layout matrix (see below)
--s  Whether to start the preview server
+-o  The output location of generated files
+-p  Path to the directory of 360 images to be used
+-r  Reverse the order of images in the target directory
+-s  Serve the output to preview in a web browser
+-t  Custom title to be displayed on the loading page
 ```
 
 ## Layout matrix
