@@ -7,11 +7,10 @@
 const {BrowserWindow} = require('electron').remote
 const path = require('path')
 
-const newWindowBtn = document.getElementById('new-window')
+const package = document.getElementById('packageLoader')
 
-newWindowBtn.addEventListener('click', (event) => {
-    console.log('new-window clicked')
-  const modalPath = path.join('file://', __dirname, '../out/index.html')
+package.addEventListener('change', (event) => {
+  const modalPath = package.files[0].path;
   let win = new BrowserWindow({ width: 400, height: 320 })
 
   win.on('close', () => { win = null })
