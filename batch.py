@@ -5,7 +5,7 @@ rootDir = 'C:/Users/rwwalla2/Desktop/ISAC/imgs/'
 for dirName, _, _ in os.walk(rootDir):
     name = dirName.split('/')[-1]
     if name != '':
-        if name == 'Foellinger Auditorium':
+        if name in ['Foellinger Auditorium']:
             print('Processing: ' + name)
             args = ['./ginger.exe', '-p=' + dirName, '-t=' + name, '-r']
             subprocess.run(args)

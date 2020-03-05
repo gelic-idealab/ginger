@@ -146,9 +146,9 @@ func main() {
 }
 
 func copyAndRenameImg(outputImgDir string, srcPath string, r int, c int) string {
-	ext := strings.Split(srcPath, ".")
+	ext := filepath.Ext(srcPath)
 	var newPath string
-	newPath = path.Join(outputImgDir, strconv.Itoa(r)+"_"+strconv.Itoa(c)+"."+ext[1])
+	newPath = path.Join(outputImgDir, strconv.Itoa(r)+"_"+strconv.Itoa(c)+ext)
 	copyFile(srcPath, newPath)
 	return newPath
 }
