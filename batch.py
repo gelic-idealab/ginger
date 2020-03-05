@@ -1,15 +1,17 @@
 import os
 import subprocess
 
-rootDir = 'C:/Users/rwwalla2/Desktop/ISAC/imgs/'
+rootDir = '../ISAC/imgs/'
+outDir = '../ISAC/tours/'
+
 for dirName, _, _ in os.walk(rootDir):
     name = dirName.split('/')[-1]
+    args = ['./ginger.exe', '-p=' + dirName, '-t=' + name, '-o=' + outDir]
     if name != '':
-        if name in ['Foellinger Auditorium']:
+        if name in ['Foellinger Auditorium', 'Loomis 151']:
             print('Processing: ' + name)
-            args = ['./ginger.exe', '-p=' + dirName, '-t=' + name, '-r']
+            args.append('-r')
             subprocess.run(args)
         else: 
             print('Processing: ' + name)
-            args = ['./ginger.exe', '-p=' + dirName, '-t=' + name]
             subprocess.run(args)
