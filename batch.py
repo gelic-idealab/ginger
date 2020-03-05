@@ -1,10 +1,10 @@
 import os
 import subprocess
 
-rootDir = '../ISAC/imgs/'
+imgDir = '../ISAC/imgs/'
 outDir = '../ISAC/tours/'
 
-for dirName, _, _ in os.walk(rootDir):
+for dirName, _, _ in os.walk(imgDir):
     name = dirName.split('/')[-1]
     args = ['./ginger.exe', '-p=' + dirName, '-t=' + name, '-o=' + outDir]
     if name != '':
