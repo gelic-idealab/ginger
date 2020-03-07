@@ -137,7 +137,7 @@ func main() {
 
 	if *serve {
 		// Set up the handler to serve the generated files
-		fs := http.FileServer(http.Dir(*title))
+		fs := http.FileServer(http.Dir(OUTPUT))
 		http.Handle("/", fs)
 
 		fmt.Println("Serving. Go to https://127.0.0.1:8443/")
