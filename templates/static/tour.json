@@ -1,0 +1,26 @@
+{
+    "annotations": {
+        "1_1": [
+            {
+                "value": "THIS IS A TEST",
+                "width": 10,
+                "height": 10,
+                "xoffset": 0,
+                "yoffset": 0,
+                "zoffset": 0
+            }
+        ],
+        "2_1": [
+            {
+                "node": "1_1",
+                "value": "THIS IS ALSO A TEST",
+                "width": 3,
+                "height": 1,
+                "xoffset": 0,
+                "yoffset": 0,
+                "zoffset": 0
+            }
+        ]
+    },
+    "orientations": []
+}

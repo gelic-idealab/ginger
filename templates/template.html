@@ -8,12 +8,13 @@
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src='static/assignImageObject.js' type='text/javascript'></script>
 <script src='static/setImage.js' type='text/javascript'></script>
+<script src='static/annotate.js' type='text/javascript'></script>
 
 </head>
 <body onload=loadImages({{num_rows}},{{num_cols}},{{img_dir}},{{img_ext}})>
 
 
-<a-scene>
+<a-scene id="scene">
 
   <a-assets id='preloaded'>
     <img id='arrow-thumb' crossorigin='anonymous' src='static/arrow.png'>
