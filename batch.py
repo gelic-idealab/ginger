@@ -15,7 +15,10 @@ for dirName, _, _ in os.walk(imgDir):
             'Siebel Center 1404', 
             'National Soybean 149',
             'Temple-Buell Hall 134',
-            'David Kinley Hall 114'
+            'David Kinley Hall 114',
+            'Natural History 2079',
+            'MSEB 100',
+            'Noyes Laboratory 100'
             ]:
             print('Processing: ' + name)
             args.append('-r')

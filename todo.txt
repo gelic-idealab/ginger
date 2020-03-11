@@ -1,0 +1,20 @@
+
+# orientation bugs
+
+Foellinger Auditorium:
+- image 2 is backwards
+
+Gregory Hall 100:
+- image 3 is backwards
+
+Loomis 141:
+- image 1 is backwards
+
+Gregory Hall 112:
+- image 3 is backwards
+
+Loomis 151:
+- image 1 is backwards
+
+Wholers Hall 141:
+- image 3 is backwards
