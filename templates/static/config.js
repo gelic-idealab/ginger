@@ -1,4 +1,4 @@
-{
+var config = {
     "annotations": {
         "1_1": [
             {

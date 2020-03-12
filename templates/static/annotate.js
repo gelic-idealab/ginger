@@ -1,23 +1,21 @@
-// node_id = '1_1'
-// load_image(node_id)
-// elements = get_extra_bits(tour.json, node_id) // ["<a-entity text="value: THIS IS A TEST; width: 3"></a-entity>"] 
 
-$.getJSON( "static/tour.json", function( json ) {
-    console.log( "all", json);
-    let nodeId = "1_1";
-    let annotations = json.annotations[nodeId];
-    console.log(annotations);
-    let scene = document.getElementById("scene");
+function renderAnnontations(annotations, nodeId) {
+    let local = annotations[nodeId];
+    console.log(local);
 
-    for (var a = 0; a < annotations.length; a++) {
+    for (var a = 0; a < local.length; a++) {
         let annotation = document.createElement("a-text");
-        annotation.setAttribute("value", annotations[a].value);
-        annotation.setAttribute("color", annotations[a].color);
-        annotation.setAttribute("z-offset", annotations[a].zoffset)
-        annotation.setAttribute("width", annotations[a].width);
-        annotation.setAttribute("height", annotations[a].height)
+        annotation.setAttribute("value", local[a].value);
+        annotation.setAttribute("color", local[a].color);
+        annotation.setAttribute("z-offset", local[a].zoffset)
+        annotation.setAttribute("width", local[a].width);
+        annotation.setAttribute("height", local[a].height)
         scene.appendChild(annotation);
         annotation = undefined;
     }
+};
 
-});
+var scene = document.getElementById("scene");
+
+let annotations = config.annotations;
+renderAnnontations(annotations, "1_1");
