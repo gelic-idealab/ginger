@@ -8,10 +8,12 @@ $.getJSON( "static/tour.json", function( json ) {
     let annotations = json.annotations[nodeId];
     console.log(annotations);
 
-    let annotation = document.createElement("a-entity");
-    annotation.setAttribute("text", "value: " + annotations[0].value);
-    // annotation.setAttribute("width", annotations[0].width);
-    // annotation.setAttribute("height", annotations[0].height)
+    let annotation = document.createElement("a-text");
+    annotation.setAttribute("value", annotations[0].value);
+    annotation.setAttribute("color", "red");
+    annotation.setAttribute("z-offset", -2.0)
+    annotation.setAttribute("width", annotations[0].width);
+    annotation.setAttribute("height", annotations[0].height)
 
 
     let scene = document.getElementById("scene");
