@@ -3,7 +3,7 @@ var scene = document.getElementById("scene");
 var annotations = config.annotations;
 
 function renderAnnontations(nodeId) {
-    $('.a-text').remove();
+    $(".annotation").remove();
     let local = annotations[nodeId];
     if (local) {
         for (var a = 0; a < local.length; a++) {
@@ -13,6 +13,7 @@ function renderAnnontations(nodeId) {
             annotation.setAttribute("z-offset", local[a].zoffset)
             annotation.setAttribute("width", local[a].width);
             annotation.setAttribute("height", local[a].height)
+            annotation.setAttribute("class", "annotation");
             scene.appendChild(annotation);
             annotation = undefined;
         }
