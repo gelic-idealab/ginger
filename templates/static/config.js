@@ -20,15 +20,15 @@ var config = {
                 "zoffset": -10
             }
         ],
-        "2_1": [
+        "1_2": [
             {
-                "value": "THIS IS A 2_1 TEST",
+                "value": "THIS IS A 1_2 TEST",
                 "width": 10,
                 "height": 10,
                 "color": "pink",
                 "xoffset": 0,
                 "yoffset": 0,
-                "zoffset": -10
+                "zoffset": -5
             }
         ]
     },

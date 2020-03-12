@@ -25,7 +25,7 @@ AFRAME.registerComponent('set-image', {
                 data.target.emit('fade');
                 // console.log(data);
                 // console.log(el);
-                // console.log(current);
+                console.log(current);
                 // Wait for fade to complete.
                 setTimeout(function () {
                     // Set image.
@@ -40,6 +40,8 @@ AFRAME.registerComponent('set-image', {
                     else document.getElementById('goForwardLink').setAttribute("visible", true);
                     if(current.backward == null) document.getElementById('goBackwardLink').setAttribute("visible", false);
                     else document.getElementById('goBackwardLink').setAttribute("visible", true);
+
+                    renderAnnontations(current.here);
 
                 }, data.dur);
             }
