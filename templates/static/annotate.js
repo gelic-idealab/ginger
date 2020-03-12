@@ -7,20 +7,17 @@ $.getJSON( "static/tour.json", function( json ) {
     let nodeId = "1_1";
     let annotations = json.annotations[nodeId];
     console.log(annotations);
-
-    let annotation = document.createElement("a-text");
-    annotation.setAttribute("value", annotations[0].value);
-    annotation.setAttribute("color", "red");
-    annotation.setAttribute("z-offset", -2.0)
-    annotation.setAttribute("width", annotations[0].width);
-    annotation.setAttribute("height", annotations[0].height)
-
-
     let scene = document.getElementById("scene");
-    scene.appendChild(annotation);
-});
 
-// function getAnnotations(json, nodeId) {
-//     let a = json[nodeId];
-//     console.log("node", a);
-// }
+    for (var a = 0; a < annotations.length; a++) {
+        let annotation = document.createElement("a-text");
+        annotation.setAttribute("value", annotations[a].value);
+        annotation.setAttribute("color", annotations[a].color);
+        annotation.setAttribute("z-offset", annotations[a].zoffset)
+        annotation.setAttribute("width", annotations[a].width);
+        annotation.setAttribute("height", annotations[a].height)
+        scene.appendChild(annotation);
+        annotation = undefined;
+    }
+
+});
