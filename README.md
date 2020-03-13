@@ -1,6 +1,6 @@
 ## Ginger includes
-- a command line tool to generate web-embeddable 360/VR tours from a directory of 360 photos. 
-- a desktop application to preview, edit, and annotate the tours. 
+- ```ginger``` a command line tool to generate web-embeddable 360/VR tours from a directory of 360 photos. 
+- ```Ginger Editor``` a desktop application to edit, annotate, and preview the tours. 
 
 ## Usage
 ```
