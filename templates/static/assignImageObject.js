@@ -1,15 +1,10 @@
 var current={};
 var listOfFiles = {};
-function loadImages(numberOfRows,numberOfColumns,fileLocation,image_type, is_file_ready, downloaded_file_location) {
+function loadImages(numberOfRows,numberOfColumns,fileLocation,image_type) {
         var numberOfRows = numberOfRows;
-        //{{numberOfRows}};
         var numberOfColumns = numberOfColumns;
-        //{{numberOfCol}};
         var fileLocation = fileLocation;
-        //{{path|tojson}};
         var image_type = image_type;
-
-        // console.log(numberOfRows + " " + numberOfColumns + " " + fileLocation + " " + image_type);
 
         var img, right, left, forward, backward, row_num, col_num;
 
@@ -48,22 +43,14 @@ function loadImages(numberOfRows,numberOfColumns,fileLocation,image_type, is_fil
                 }
                 var img_html = "<img id='"+j+"_"+i+"' alt='"+j+"_"+i+"' crossorigin='anonymous' src ="+ img +">"
                 $('#preloaded').append(img_html) 
-                listOfFiles[j + '_' + i] = {img: img, left: left, right: right, backward: backward, forward: forward};
+                listOfFiles[j + '_' + i] = {img: img, here: j + '_' + i, left: left, right: right, backward: backward, forward: forward};
             }
         }
-        // console.log(listOfFiles);
 
         var start = listOfFiles['1_1'];
         current = start;
+        renderAnnontations('1_1');
 
         document.getElementById('this-image').src = start.img;
 
-        if(is_file_ready=='Yes') {
-            window.location = downloaded_file_location;
-            setTimeout(function () {
-                window.location = $('a#redirect_home').attr('href');
-            }, 5000);
-
-
-        }
     }
