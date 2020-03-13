@@ -12,11 +12,21 @@
 
   </head>
   <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo">DRES & CoE 360 Tour Editor</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a class="waves-effect waves-light btn-large">Large Button</a></li>
+        </ul>
+      </div>
+    </nav>
     <div class="container">
       <p>Choose 360 tour to edit</p>
       <input type="file" id="packageLoader" name="packageDir" webkitdirectory >
-    </div>
-
+    
+      <div id="frame"></div>
+      
+    </div>  
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
     <script src="./materialize/js/materialize.min.js"></script>
