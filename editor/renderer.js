@@ -23,4 +23,9 @@ package.addEventListener('change', (event) => {
   frame.setAttribute('height', 600);
   parent.appendChild(frame);
 
-})
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems);
+});
