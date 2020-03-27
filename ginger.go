@@ -79,6 +79,7 @@ func main() {
 		}
 	}
 
+	// TODO(rob): explicitly sort files by name ascending
 	for f := 0; f < fileCounter; f++ {
 		if row_counter <= matrixRows {
 			if column_counter <= *columns {

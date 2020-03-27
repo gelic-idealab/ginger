@@ -1,7 +1,7 @@
 
 var scene = document.getElementById("scene");
 var annotations = config.annotations;
-
+var orientations = config.orientations;
 function renderAnnontations(nodeId) {
     $(".annotation").remove();
     let local = annotations[nodeId];
@@ -19,5 +19,14 @@ function renderAnnontations(nodeId) {
         }
     };
 };
+
+function applyOrientation(nodeId) {
+    let local = orientations[nodeId]
+    if (local) {
+        console.log("appplying orientation to:", nodeId)
+        let current = document.getElementById("image-current");
+        current.setAttribute("rotation", local.rotation)
+    }
+}
 
 

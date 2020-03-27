@@ -32,5 +32,10 @@ var config = {
             }
         ]
     },
-    "orientations": []
+    "orientations": {
+        "2_1": {
+            "rotation": "0 180 0"
+        }
+    }        
+    
 }
