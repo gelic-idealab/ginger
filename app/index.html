@@ -7,19 +7,27 @@
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <link rel="stylesheet" type="text/css" href="./materialize/css/materialize.min.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/app/materialize/css/icons.css" rel="stylesheet">
+
+    <style>
+      @import "~material-design-icons/iconfont/material-icons.css";
+    </style>
 
     <title>360 Tour Editor</title>
+   
 
   </head>
   <body>
-    <nav>
+    <nav class="indigo">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo">DRES & CoE 360 Tour Editor</a>
-        <ul class="right hide-on-med-and-down">
+        <a href="#!" class="brand-logo"><img src="/assets/illinois.jpg">DRES & CoE 360 Tour Editor</a>
+        <!-- <ul class="right hide-on-med-and-down">
           <li><a class="waves-effect waves-light btn-large">Large Button</a></li>
-        </ul>
+        </ul> -->
       </div>
     </nav>
+
     <div class="container">
       <p>Choose 360 tour to edit</p>
       <input type="file" id="packageLoader" name="packageDir" webkitdirectory >
@@ -27,7 +35,55 @@
       <div id="frame"></div>
       
     </div>  
-    <!-- You can also require other files to run in this process -->
+    <div class = "vertical" style="border-left:6px solid black; height: 200px;position:absolute; left: 50%;">
+    <h1 style = "color: green;">  
+      vertical line 
+    </h1> 
+    <!-- <svg width="100" height="4000">
+      <rect width="100" height="400" style="fill:white; stroke:green; stroke-width:3cm;"/>
+    </svg>  -->
+    <!-- <div  class = "responsive-img" style="width:500px; height:100px border:1px solid #000;"><img src="/assets/edit.png" alt="hejeiai"></div> -->
+    <div class = "card-panel">
+      <img src = "/assets/edit.png" alt = "" class = "responsive-img">		
+   </div>
+   <h3>Icon Demo</h3>
+
+
+   <div class="row">
+    <div class="col s5">
+      <div class="card-panel teal" width="50%">
+        <span class="white-text">
+          <span class="material-icons">
+
+            <i class="material-icons">create</i>
+            </span><br>
+            <span class="material-icons">
+              add
+            </span><br>
+            <span class="material-icons">
+              redo
+            </span><br>
+            <span class="material-icons">
+              save
+            </span><br>
+
+
+
+        </span>
+      </div>
+    </div>
+  </div>
+            
+
+
+
+ 
+
+
+      
+  </div> 
+ 
+    <!-- You can also require other files to run in this process     -->
     <script src="./renderer.js"></script>
     <script src="./materialize/js/materialize.min.js"></script>
   </body>
