@@ -1,6 +1,5 @@
 
 var scene = document.getElementById("scene");
-var config = JSON.parse(document.getElementById('config'));
 var annotations = config.annotations;
 
 function renderAnnontations(nodeId) {
