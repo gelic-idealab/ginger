@@ -37,5 +37,10 @@ var config = {
             "rotation": "0 180 0"
         }
     }        
-    
 }
+
+try {
+    module.exports = config;
+} catch {
+
+};
