@@ -7,44 +7,49 @@
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <link rel="stylesheet" type="text/css" href="./node_modules/materialize-css/dist/css/materialize.min.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./node_modules/material-design-icons/iconfont/material-icons.css" rel="stylesheet">
 
-    <title>360 Tour Editor</title>
+    <title>Ginger 360 Tour Editor</title>
+   
 
   </head>
   <body>
-    <nav>
+    <nav class="indigo">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo">DRES & CoE 360 Tour Editor</a>
-        <ul class="right hide-on-med-and-down">
-          <li><a class="waves-effect waves-light btn-large">Large Button</a></li>
+        <!-- <a href="#!" class="brand-logo"><img src="assets/illinois.jpg">DRES & CoE 360 Tour Editor</a> -->
+        <ul class="left">
+
+          <li>
+            <a class="waves-effect waves-light btn"><i class="material-icons left">undo</i>Undo</a>
+          </li>
+          <li>
+            <a class="waves-effect waves-light btn"><i class="material-icons left">redo</i>Redo</a>
+          </li>
+
+          <li>
+            <a class="waves-effect waves-light btn"><i class="material-icons left">create</i>Edit</a>
+          </li>
+          <li>
+            <a class="waves-effect waves-light btn"><i class="material-icons left">add</i>Add</a>
+          </li>
+          <li>
+            <a class="waves-effect waves-light btn"><i class="material-icons left">delete</i>Delete</a>
+          </li>
+          <li>
+            <a class="waves-effect waves-light btn"><i class="material-icons left">save</i>Save</a>
+          </li>
         </ul>
       </div>
     </nav>
 
-    <ul id="slide-out" class="sidenav">
-      <li><div class="user-view">
-        <div class="background">
-          <img src="images/office.jpg">
-        </div>
-        <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
-        <a href="#name"><span class="white-text name">John Doe</span></a>
-        <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-      </div></li>
-      <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-      <li><a href="#!">Second Link</a></li>
-      <li><div class="divider"></div></li>
-      <li><a class="subheader">Subheader</a></li>
-      <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-    </ul>
-    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-
-    
     <div class="container">
       <p>Choose 360 tour to edit</p>
       <input type="file" id="packageLoader" name="packageDir" webkitdirectory >
     
       <div id="frame"></div>
-      
+
+      <div id="config"></div>
+
     </div>  
 
        
