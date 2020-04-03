@@ -18,10 +18,13 @@ function renderAnnontations(nodeId) {
                 scene.appendChild(annotation);
                 annotation = undefined;
             }
-            if (local[a].type == "highlight") {
-                let annotation = document.createElement("a-entity");
-                annotation.setAttribute("geometry", local[a].geometry);
-                annotation.setAttribute("z-offset", local[a].zoffset)
+            if (local[a].type == "geometry") {
+                let annotation = document.createElement("a-plane");
+                annotation.setAttribute("width", local[a].width);
+                annotation.setAttribute("height", local[a].height);
+                annotation.setAttribute("position", local[a].position);
+                annotation.setAttribute("rotation", local[a].rotation);
+                annotation.setAttribute("material", local[a].material);
                 annotation.setAttribute("class", "annotation");
                 scene.appendChild(annotation);
                 annotation = undefined;

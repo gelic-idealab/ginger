@@ -22,16 +22,17 @@ var config = {
                 "zoffset": -10
             },
             {
-                "type": "highlight",
-                "geometry": "'primitive: plane; height: 10; width: 10'",
-                "xoffset": 0,
-                "yoffset": 0,
-                "zoffset": 10
+                "type": "geometry",
+                "height": 10,
+                "width": 10,
+                "position": "15 0 -14",
+                "rotation": "-90 0 0",
+                "material": "side: double; color: #EF2D5E; transparent: true; opacity: 0.5"
             }
         ],
         "1_2": [
             {
-                "type": "a-text",
+                "type": "text",
                 "value": "THIS IS A 1_2 TEST",
                 "width": 10,
                 "height": 10,
