@@ -47,9 +47,12 @@ function loadImages(numberOfRows,numberOfColumns,fileLocation,image_type) {
             }
         }
 
-        var start = listOfFiles['1_1'];
+        var node = '1_1';
+        var start = listOfFiles[node];
         current = start;
-        renderAnnontations('1_1');
+        
+        applyOrientation(node);
+        renderAnnontations(node);
 
         document.getElementById('this-image').src = start.img;
 
