@@ -42,6 +42,7 @@ AFRAME.registerComponent('set-image', {
                     else document.getElementById('goBackwardLink').setAttribute("visible", true);
 
                     renderAnnontations(current.here);
+                    applyOrientation(current.here);
 
                 }, data.dur);
             }
