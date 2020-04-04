@@ -6,7 +6,7 @@ outDir = '../ISAC/tours/'
 
 for dirName, _, _ in os.walk(imgDir):
     name = dirName.split('/')[-1]
-    args = ['./ginger.exe', '-p=' + dirName, '-t=' + name, '-o=' + outDir]
+    args = ['./builds/ginger.exe', '-p=' + dirName, '-t=' + name, '-o=' + outDir]
     if name != '':
         print('Processing: ' + name)
         if name in [
