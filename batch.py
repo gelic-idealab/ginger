@@ -7,8 +7,12 @@ outDir = '../ISAC/tours/'
 
 if sys.platform == 'win32':
     exe_path = './builds/ginger.exe'
-else:
+elif sys.platform == 'darwin':
     exe_path = './builds/ginger'
+else:
+    print('Unsupported OS, exiting.')
+    sys.exit(2)
+
 
 for dirName, _, _ in os.walk(imgDir):
     name = dirName.split('/')[-1]
