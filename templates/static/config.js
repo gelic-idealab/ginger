@@ -2,6 +2,7 @@ var config = {
     "annotations": {
         "1_1": [
             {
+                "type": "text",
                 "value": "THIS IS A TEST",
                 "width": 10,
                 "height": 10,
@@ -11,6 +12,7 @@ var config = {
                 "zoffset": -2
             },
             {
+                "type": "text",
                 "value": "THIS IS ALSO A TEST",
                 "width": 10,
                 "height": 10,
@@ -18,10 +20,19 @@ var config = {
                 "xoffset": 0,
                 "yoffset": 0,
                 "zoffset": -10
+            },
+            {
+                "type": "geometry",
+                "height": 10,
+                "width": 10,
+                "position": "15 0 -14",
+                "rotation": "-90 0 0",
+                "material": "side: double; color: #EF2D5E; transparent: true; opacity: 0.5"
             }
         ],
         "1_2": [
             {
+                "type": "text",
                 "value": "THIS IS A 1_2 TEST",
                 "width": 10,
                 "height": 10,

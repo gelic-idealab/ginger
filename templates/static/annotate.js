@@ -7,15 +7,28 @@ function renderAnnontations(nodeId) {
     let local = annotations[nodeId];
     if (local) {
         for (var a = 0; a < local.length; a++) {
-            let annotation = document.createElement("a-text");
-            annotation.setAttribute("value", local[a].value);
-            annotation.setAttribute("color", local[a].color);
-            annotation.setAttribute("z-offset", local[a].zoffset)
-            annotation.setAttribute("width", local[a].width);
-            annotation.setAttribute("height", local[a].height)
-            annotation.setAttribute("class", "annotation");
-            scene.appendChild(annotation);
-            annotation = undefined;
+            if (local[a].type == "text") {
+                let annotation = document.createElement("a-text");
+                annotation.setAttribute("value", local[a].value);
+                annotation.setAttribute("color", local[a].color);
+                annotation.setAttribute("z-offset", local[a].zoffset)
+                annotation.setAttribute("width", local[a].width);
+                annotation.setAttribute("height", local[a].height)
+                annotation.setAttribute("class", "annotation");
+                scene.appendChild(annotation);
+                annotation = undefined;
+            }
+            if (local[a].type == "geometry") {
+                let annotation = document.createElement("a-plane");
+                annotation.setAttribute("width", local[a].width);
+                annotation.setAttribute("height", local[a].height);
+                annotation.setAttribute("position", local[a].position);
+                annotation.setAttribute("rotation", local[a].rotation);
+                annotation.setAttribute("material", local[a].material);
+                annotation.setAttribute("class", "annotation");
+                scene.appendChild(annotation);
+                annotation = undefined;
+            }
         }
     };
 };

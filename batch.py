@@ -1,12 +1,22 @@
+import sys
 import os
 import subprocess
 
 imgDir = '../ISAC/imgs/'
 outDir = '../ISAC/tours/'
 
+if sys.platform == 'win32':
+    exe_path = './builds/ginger.exe'
+elif sys.platform == 'darwin':
+    exe_path = './builds/ginger'
+else:
+    print('Unsupported OS, exiting.')
+    sys.exit(2)
+
+
 for dirName, _, _ in os.walk(imgDir):
     name = dirName.split('/')[-1]
-    args = ['./ginger.exe', '-p=' + dirName, '-t=' + name, '-o=' + outDir]
+    args = [exe_path, '-p=' + dirName, '-t=' + name, '-o=' + outDir]
     if name != '':
         print('Processing: ' + name)
         if name in [
