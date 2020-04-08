@@ -1,12 +1,18 @@
+import sys
 import os
 import subprocess
 
 imgDir = '../ISAC/imgs/'
 outDir = '../ISAC/tours/'
 
+if sys.platform == 'win32':
+    exe_path = './builds/ginger.exe'
+else:
+    exe_path = './builds/ginger'
+
 for dirName, _, _ in os.walk(imgDir):
     name = dirName.split('/')[-1]
-    args = ['./builds/ginger.exe', '-p=' + dirName, '-t=' + name, '-o=' + outDir]
+    args = [exe_path, '-p=' + dirName, '-t=' + name, '-o=' + outDir]
     if name != '':
         print('Processing: ' + name)
         if name in [
