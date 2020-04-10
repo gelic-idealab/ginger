@@ -49,6 +49,21 @@ package.addEventListener('change', (event) => {
         let newPtag = document.createElement('p');
         console.log('renderNOdeConfig fired:', key, skey)
         newPtag.insertAdjacentText('afterbegin', Object.keys(configData[key][skey][i]));
+
+        if (i=0) {
+          newPtag.insertAdjacentText('afterbegin', Object.keys(configData[key][skey][i].type));
+        } else {
+          let currentValue = configData[key][skey][i].value;
+          let input = document.createElement('input');
+          input.setAttribute('placeholder', currentValue);
+          input.setAttribute('type', "text");
+          input.setAttribute('id', Object.keys(configData[key][skey][i]));
+          // let labelValue = Object.keys(configData[key][skey][i]);
+          // let label = document.createElement('label');
+          // label.setAttribute('for', )
+          // <label for="first_name">First Name</label>
+          newPtag.appendChild(input);
+        }
         newKeys.appendChild(newPtag);
       }
       config.appendChild(newKeys)
