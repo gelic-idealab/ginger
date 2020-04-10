@@ -33,16 +33,42 @@ package.addEventListener('change', (event) => {
 
 
   // setting up config rending in editor
+  let graph = document.getElementById('graph');
   let config = document.getElementById('config')
   let ptag = document.createElement('p')
 
-  let configFile = require(configPath);
-  let configData = configFile;
-  // let obj = JSON.parse(configData);
+  let configData = require(configPath);
   console.log(configData);
 
-  ptag.insertAdjacentText('afterbegin', JSON.stringify(configData))
-  config.appendChild(ptag);
+  function renderNodeConfig(key, skey) {
+      let config = document.getElementById('config');
+      config.removeChild(document.getElementById('keys'));
+      let newKeys = document.createElement('p');
+      newKeys.setAttribute('id', 'keys');
+      for(let i in configData[key][skey]) {
+        let newPtag = document.createElement('p');
+        console.log('renderNOdeConfig fired:', key, skey)
+        newPtag.insertAdjacentText('afterbegin', Object.keys(configData[key][skey][i]));
+        newKeys.appendChild(newPtag);
+      }
+      config.appendChild(newKeys)
+  }
+
+  for (let key in configData) {
+    let ptag = document.createElement('p');
+    ptag.insertAdjacentText('afterbegin', key);
+    for (let skey of Object.keys(configData[key])) {
+      let ptag2 = document.createElement('p');
+      ptag2.insertAdjacentText('afterbegin', skey)
+      ptag2.onclick = function(){renderNodeConfig(key, skey)};
+      ptag.appendChild(ptag2);
+    }
+    graph.appendChild(ptag);
+
+  }
+
+  // ptag.insertAdjacentText('afterbegin', JSON.stringify(configData))
+  // config.appendChild(ptag);
 
 
 });

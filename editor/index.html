@@ -27,30 +27,43 @@
           </li>
 
           <li>
-            <a class="waves-effect waves-light btn"><i class="material-icons left">create</i>Edit</a>
-          </li>
-          <li>
-            <a class="waves-effect waves-light btn"><i class="material-icons left">add</i>Add</a>
-          </li>
-          <li>
-            <a class="waves-effect waves-light btn"><i class="material-icons left">delete</i>Delete</a>
+            <!-- <a class="waves-effect waves-light btn"><i class="material-icons left">folder_open</i>Open</a> -->
+            <input type="file" id="packageLoader" name="packageDir" webkitdirectory >
           </li>
           <li>
             <a class="waves-effect waves-light btn"><i class="material-icons left">save</i>Save</a>
+          </li>
+          <li>
+            <a class="waves-effect waves-light btn"><i class="material-icons left">add</i>Add</a>
           </li>
         </ul>
       </div>
     </nav>
 
-    <div class="container">
-      <p>Choose 360 tour to edit</p>
-      <input type="file" id="packageLoader" name="packageDir" webkitdirectory >
+    <!-- Page Layout here -->
     
-      <div id="frame"></div>
+    <div>
+      <div class="row">
 
-      <div id="config"></div>
+        <div class="col s2">
+          <p>Scene Graph</p>
+          <div id="graph"></div>
+        </div>
 
-    </div>  
+        <div class="col s6">
+          <br>
+          <div id="frame"></div>
+        </div>
+
+        <div class="col s2">
+          <p>Tools</p>
+          <div id="config">
+            <div id="keys"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
        
     <!-- You can also require other files to run in this process -->
