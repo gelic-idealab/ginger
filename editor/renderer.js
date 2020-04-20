@@ -10,14 +10,17 @@ const fs = require('fs')
 
 const package = document.getElementById('packageLoader')
 
+var indexPath;
+var configPath;
+
 package.addEventListener('change', (event) => {
 
   for(var i = 0; i < package.files.length; i++) {
     if (package.files[i].name === "index.html") {
-      var indexPath = package.files[i].path;
+      indexPath = package.files[i].path;
     }
     if (package.files[i].name === "config.js") {
-      var configPath = package.files[i].path;
+      configPath = package.files[i].path;
     }
   }
 
@@ -25,7 +28,14 @@ package.addEventListener('change', (event) => {
 
   // setting up iframe embedding of tour
   let parent = document.getElementById('frame');
+  let oldFrame = document.getElementById('iframe');
+  console.log(oldFrame)
+  if (oldFrame != null) {
+    console.log('oldFrame', oldFrame)
+    parent.removeChild(oldFrame);
+  }
   let frame = document.createElement('iframe');
+  frame.setAttribute('id', 'iframe')
   frame.setAttribute('src', indexPath)
   frame.setAttribute('width', 800);
   frame.setAttribute('height', 600);
@@ -33,19 +43,23 @@ package.addEventListener('change', (event) => {
 
 
   // setting up config rending in editor
+  let oldGraph = document.getElementById('sceneGraph')
+  if (oldGraph != null) {
+    document.removeChild(oldGraph);
+  }
   let graph = document.getElementById('graph');
-  let config = document.getElementById('config')
-  let ptag = document.createElement('p')
 
-  let configData = require(configPath);
+  var configData = require(configPath);
   console.log(configData);
 
   function renderNodeConfig(key, skey, i) {
+      currentConfigElement = { 'key': key, 'skey': skey, 'i': i };
       let config = document.getElementById('config');
       config.removeChild(document.getElementById('keys'));
       let newKeys = document.createElement('p');
       newKeys.setAttribute('id', 'keys');
-      let newPtag = document.createElement('p');
+      let form = document.createElement('form');
+      form.setAttribute('name', 'props')
       for (let k of Object.keys(configData[key][skey][i])) {
         console.log('renderNodeConfig fired:', key, skey, i, k, configData[key][skey][i][k])
         // newPtag.insertAdjacentText('afterbegin', configData[key][skey][i][k]);
@@ -54,21 +68,23 @@ package.addEventListener('change', (event) => {
         input.setAttribute('value', currentValue);
         input.setAttribute('type', "text");
         input.setAttribute('id', k);
+        input.addEventListener('change', (event) => { edited = true; intermediateConfig[k] = document.getElementById(k).value; console.log('config edited:', k, document.getElementById(k).value); })
 
         let label = document.createElement('label')
         label.setAttribute('for', k)
         label.insertAdjacentText('afterbegin', k)
 
-        newPtag.appendChild(input);
-        newPtag.appendChild(label);
+        form.appendChild(input);
+        form.appendChild(label);
       }
-      newKeys.appendChild(newPtag);
-      config.appendChild(newKeys)
+      newKeys.appendChild(form);
+      config.appendChild(newKeys);
   }
 
   // render scene graph
   for (let key in configData) {
     let ptag = document.createElement('p');
+    ptag.setAttribute('id', 'sceneGraph')
     ptag.insertAdjacentText('afterbegin', key);
     for (let skey of Object.keys(configData[key])) {
       let ptag2 = document.createElement('p');

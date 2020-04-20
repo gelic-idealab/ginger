@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
     <link rel="stylesheet" type="text/css" href="./node_modules/materialize-css/dist/css/materialize.min.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./node_modules/material-design-icons/iconfont/material-icons.css" rel="stylesheet">
+
+    <script src="./save.js"></script>
 
     <title>Ginger 360 Tour Editor</title>
    
@@ -30,9 +32,7 @@
             <!-- <a class="waves-effect waves-light btn"><i class="material-icons left">folder_open</i>Open</a> -->
             <input type="file" id="packageLoader" name="packageDir" webkitdirectory >
           </li>
-          <li>
-            <a class="waves-effect waves-light btn"><i class="material-icons left">save</i>Save</a>
-          </li>
+
           <li>
             <a class="waves-effect waves-light btn"><i class="material-icons left">add</i>Add</a>
           </li>
@@ -59,6 +59,7 @@
           <p>Properties</p>
           <div id="config">
             <div id="keys"></div>
+          <a id="saveBtn" class="waves-effect waves-light btn" onclick="saveConfig()"><i class="material-icons left">save</i>Save</a>
           </div>
         </div>
 
