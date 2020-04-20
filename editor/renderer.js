@@ -40,46 +40,48 @@ package.addEventListener('change', (event) => {
   let configData = require(configPath);
   console.log(configData);
 
-  function renderNodeConfig(key, skey) {
+  function renderNodeConfig(key, skey, i) {
       let config = document.getElementById('config');
       config.removeChild(document.getElementById('keys'));
       let newKeys = document.createElement('p');
       newKeys.setAttribute('id', 'keys');
-      for(let i in configData[key][skey]) {
-        let newPtag = document.createElement('p');
-        console.log('renderNOdeConfig fired:', key, skey)
-        newPtag.insertAdjacentText('afterbegin', Object.keys(configData[key][skey][i]));
+      let newPtag = document.createElement('p');
+      for (let k of Object.keys(configData[key][skey][i])) {
+        console.log('renderNodeConfig fired:', key, skey, i, k, configData[key][skey][i][k])
+        // newPtag.insertAdjacentText('afterbegin', configData[key][skey][i][k]);
+        let currentValue = configData[key][skey][i][k];
+        let input = document.createElement('input');
+        input.setAttribute('value', currentValue);
+        input.setAttribute('type', "text");
+        input.setAttribute('id', k);
 
-        if (i=0) {
-          newPtag.insertAdjacentText('afterbegin', Object.keys(configData[key][skey][i].type));
-        } else {
-          let currentValue = configData[key][skey][i].value;
-          let input = document.createElement('input');
-          input.setAttribute('placeholder', currentValue);
-          input.setAttribute('type', "text");
-          input.setAttribute('id', Object.keys(configData[key][skey][i]));
-          // let labelValue = Object.keys(configData[key][skey][i]);
-          // let label = document.createElement('label');
-          // label.setAttribute('for', )
-          // <label for="first_name">First Name</label>
-          newPtag.appendChild(input);
-        }
-        newKeys.appendChild(newPtag);
+        let label = document.createElement('label')
+        label.setAttribute('for', k)
+        label.insertAdjacentText('afterbegin', k)
+
+        newPtag.appendChild(input);
+        newPtag.appendChild(label);
       }
+      newKeys.appendChild(newPtag);
       config.appendChild(newKeys)
   }
 
+  // render scene graph
   for (let key in configData) {
     let ptag = document.createElement('p');
     ptag.insertAdjacentText('afterbegin', key);
     for (let skey of Object.keys(configData[key])) {
       let ptag2 = document.createElement('p');
       ptag2.insertAdjacentText('afterbegin', skey)
-      ptag2.onclick = function(){renderNodeConfig(key, skey)};
+      for (let i in configData[key][skey]) {
+        let ptag3 = document.createElement('p');
+        ptag3.insertAdjacentText('afterbegin', i);
+        ptag3.onclick = function(){ renderNodeConfig(key, skey, i) };
+        ptag2.appendChild(ptag3);
+      }
       ptag.appendChild(ptag2);
     }
     graph.appendChild(ptag);
-
   }
 
   // ptag.insertAdjacentText('afterbegin', JSON.stringify(configData))
