@@ -44,6 +44,8 @@ function applyOrientation(nodeId) {
         if (local) {
             console.log("appplying custom orientation to:", nodeId, local.rotation)
             current.setAttribute("rotation", local.rotation)
+        } else {
+            current.setAttribute("rotation", "0 0 0")
         }
     } else {
         current.setAttribute("rotation", "0 0 0")
