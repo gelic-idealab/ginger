@@ -24,7 +24,7 @@ package.addEventListener('change', (event) => {
     }
   }
 
-  // console.log(indexPath, configPath);
+  console.log('loading tour:', indexPath, configPath);
 
   // setting up iframe embedding of tour
   let parent = document.getElementById('frame');
@@ -59,13 +59,16 @@ package.addEventListener('change', (event) => {
       form.setAttribute('name', 'props')
       for (let k of Object.keys(configData[key][skey][i])) {
         // console.log('renderNodeConfig fired:', key, skey, i, k, configData[key][skey][i][k])
-        // newPtag.insertAdjacentText('afterbegin', configData[key][skey][i][k]);
         let currentValue = configData[key][skey][i][k];
         let input = document.createElement('input');
         input.setAttribute('value', currentValue);
         input.setAttribute('type', "text");
         input.setAttribute('id', k);
-        input.addEventListener('change', (event) => { edited = true; intermediateConfig[k] = document.getElementById(k).value; console.log('config edited:', k, document.getElementById(k).value); })
+        input.addEventListener('change', (event) => { 
+          edited = true; 
+          intermediateConfig[k] = document.getElementById(k).value; 
+          console.log('config edited:', k, document.getElementById(k).value); 
+        });
 
         let label = document.createElement('label')
         label.setAttribute('for', k)
@@ -96,10 +99,6 @@ package.addEventListener('change', (event) => {
     }
     graph.appendChild(ptag);
   }
-
-  // ptag.insertAdjacentText('afterbegin', JSON.stringify(configData))
-  // config.appendChild(ptag);
-
 
 });
 
