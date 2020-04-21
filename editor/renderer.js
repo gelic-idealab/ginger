@@ -95,11 +95,18 @@ package.addEventListener('change', (event) => {
     let ptag = document.createElement('p');
     ptag.setAttribute('id', key)
     ptag.insertAdjacentText('afterbegin', key);
+    let addBtn = document.createElement('a');
+    addBtn.setAttribute('class', "waves-effect waves-light btn");
+    let btnIcon = document.createElement('i');
+    btnIcon.setAttribute('class', "material-icons");
+    btnIcon.insertAdjacentText('afterbegin', 'add')
+    addBtn.appendChild(btnIcon);
+    ptag.appendChild(addBtn);
     for (let skey of Object.keys(configData[key])) {
       let ptag2 = document.createElement('p');
       ptag2.insertAdjacentText('afterbegin', skey)
       for (let i in configData[key][skey]) {
-        let ptag3 = document.createElement('a');
+        let ptag3 = document.createElement('p');
         ptag3.setAttribute('class', "waves-effect waves-light btn");
         ptag3.insertAdjacentText('afterbegin', i);
         ptag3.onclick = function(){ renderNodeConfig(key, skey, i) };
