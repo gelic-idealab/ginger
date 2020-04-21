@@ -25,6 +25,7 @@ package.addEventListener('change', (event) => {
   }
 
   console.log('loading tour:', indexPath, configPath);
+  var configData = require(configPath);
 
   // setting up iframe embedding of tour
   let parent = document.getElementById('frame');
@@ -41,14 +42,18 @@ package.addEventListener('change', (event) => {
 
 
   // setting up config rending in editor
-  let oldGraph = document.getElementById('sceneGraph')
+  let sceneGraph = document.getElementById('sceneGraph');
+  let oldGraph = document.getElementById('graph')
   if (oldGraph != null) {
-    document.removeChild(oldGraph);
+    console.log('removing old sceneGraph')
+    sceneGraph.removeChild(oldGraph);
   }
-  let graph = document.getElementById('graph');
+  let graph = document.createElement('div');
+  graph.setAttribute('id', 'graph');
+  sceneGraph.appendChild(graph);
 
-  var configData = require(configPath);
 
+  // render properties for selected node
   function renderNodeConfig(key, skey, i) {
       currentConfigElement = { 'key': key, 'skey': skey, 'i': i };
       let config = document.getElementById('config');
@@ -84,7 +89,7 @@ package.addEventListener('change', (event) => {
   // render scene graph
   for (let key in configData) {
     let ptag = document.createElement('p');
-    ptag.setAttribute('id', 'sceneGraph')
+    ptag.setAttribute('id', key)
     ptag.insertAdjacentText('afterbegin', key);
     for (let skey of Object.keys(configData[key])) {
       let ptag2 = document.createElement('p');
