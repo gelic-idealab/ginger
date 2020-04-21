@@ -42,10 +42,13 @@
     <div>
       <div class="row">
 
-        <div class="col s2" id="sceneGraph">
+        <div class="col s2">
           <p>Scene Graph</p>
-          <a class="waves-effect waves-light btn"><i class="material-icons left">add</i>Add</a>
-          <div id="graph"></div>
+          <div class="card-panel" id="sceneGraph">
+            <a class="waves-effect waves-light btn"><i class="material-icons left">add</i>Add</a>
+            <div id="graph"></div>
+          </div>
+          
         </div>
 
         <div class="col s8">
@@ -55,7 +58,7 @@
 
         <div class="col s2">
           <p>Properties</p>
-          <div id="config">
+          <div id="config" class="card-panel">
             <div id="keys"></div>
           <a id="saveBtn" class="waves-effect waves-light btn" onclick="saveConfig()"><i class="material-icons left">save</i>Save</a>
           </div>
