@@ -5,7 +5,7 @@ var edited = false;
 function saveConfig() {
     if (edited) {
         let config = require(configPath);
-        console.log(config)
+        // console.log(config)
         let key = currentConfigElement['key'];
         let skey = currentConfigElement['skey'];
         let i = currentConfigElement['i']
@@ -14,13 +14,11 @@ function saveConfig() {
             config[key][skey][i][k] = intermediateConfig[k];
         }
 
-        console.log('updated config:', config[key][skey][i][k])
+        console.log('updated config:', k, config[key][skey][i][k])
 
         let configText = "var config = "
         configText += JSON.stringify(config)
         configText += "; try { module.exports = config; } catch {};"
-
-        console.log(configText)
 
         fs.writeFile(configPath, configText, (err) => { if (err) { console.log(err); } })
 

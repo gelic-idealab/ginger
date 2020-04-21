@@ -68,6 +68,10 @@ package.addEventListener('change', (event) => {
         let input = document.createElement('input');
         input.setAttribute('value', currentValue);
         input.setAttribute('type', "text");
+        if (k == 'type') {
+          input.disabled = true;
+        };
+        
         input.setAttribute('id', k);
         input.addEventListener('change', (event) => { 
           edited = true; 
