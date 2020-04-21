@@ -24,14 +24,12 @@ package.addEventListener('change', (event) => {
     }
   }
 
-  console.log(indexPath, configPath);
+  // console.log(indexPath, configPath);
 
   // setting up iframe embedding of tour
   let parent = document.getElementById('frame');
   let oldFrame = document.getElementById('iframe');
-  console.log(oldFrame)
   if (oldFrame != null) {
-    console.log('oldFrame', oldFrame)
     parent.removeChild(oldFrame);
   }
   let frame = document.createElement('iframe');
@@ -50,7 +48,6 @@ package.addEventListener('change', (event) => {
   let graph = document.getElementById('graph');
 
   var configData = require(configPath);
-  console.log(configData);
 
   function renderNodeConfig(key, skey, i) {
       currentConfigElement = { 'key': key, 'skey': skey, 'i': i };
@@ -61,7 +58,7 @@ package.addEventListener('change', (event) => {
       let form = document.createElement('form');
       form.setAttribute('name', 'props')
       for (let k of Object.keys(configData[key][skey][i])) {
-        console.log('renderNodeConfig fired:', key, skey, i, k, configData[key][skey][i][k])
+        // console.log('renderNodeConfig fired:', key, skey, i, k, configData[key][skey][i][k])
         // newPtag.insertAdjacentText('afterbegin', configData[key][skey][i][k]);
         let currentValue = configData[key][skey][i][k];
         let input = document.createElement('input');
