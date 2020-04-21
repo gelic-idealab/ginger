@@ -90,7 +90,7 @@ package.addEventListener('change', (event) => {
       let ptag2 = document.createElement('p');
       ptag2.insertAdjacentText('afterbegin', skey)
       for (let i in configData[key][skey]) {
-        let ptag3 = document.createElement('p');
+        let ptag3 = document.createElement('button');
         ptag3.insertAdjacentText('afterbegin', i);
         ptag3.onclick = function(){ renderNodeConfig(key, skey, i) };
         ptag2.appendChild(ptag3);
