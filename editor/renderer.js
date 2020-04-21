@@ -37,8 +37,8 @@ package.addEventListener('change', (event) => {
   let frame = document.createElement('iframe');
   frame.setAttribute('id', 'iframe')
   frame.setAttribute('src', indexPath)
-  frame.setAttribute('width', 800);
-  frame.setAttribute('height', 600);
+  frame.setAttribute('width', 1024);
+  frame.setAttribute('height', 768);
   parent.appendChild(frame);
 
 
