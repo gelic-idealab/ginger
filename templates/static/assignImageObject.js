@@ -47,7 +47,7 @@ function loadImages(numberOfRows,numberOfColumns,fileLocation,image_type) {
             }
         }
 
-        var node = '1_1';
+        var node = config.start.node;
         var start = listOfFiles[node];
         current = start;
         
