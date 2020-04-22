@@ -40,10 +40,10 @@ function applyOrientation(nodeId) {
     let node = config[nodeId];
     let current = document.getElementById("image-current");
     if (node) {
-        let local = config[nodeId].orientations
+        let local = config[nodeId].rotation;
         if (local) {
-            console.log("appplying custom orientation to:", nodeId, local.rotation)
-            current.setAttribute("rotation", local.rotation)
+            console.log("appplying custom orientation to:", nodeId, local)
+            current.setAttribute("rotation", local)
         } else {
             current.setAttribute("rotation", "0 0 0")
         }

@@ -64,15 +64,18 @@ package.addEventListener('change', (event) => {
 
 });
 
-// render properties for selected node
+// render function for properties of selected annotation
 function renderNodeConfig(key, skey, i) {
-    currentConfigElement = { 'key': key, 'skey': skey, 'i': i };
-    let config = document.getElementById('config');
-    config.removeChild(document.getElementById('keys'));
-    let newKeys = document.createElement('p');
-    newKeys.setAttribute('id', 'keys');
-    let form = document.createElement('form');
-    form.setAttribute('name', 'props')
+  currentConfigElement = { 'key': key, 'skey': skey, 'i': i };
+  let config = document.getElementById('config');
+  config.removeChild(document.getElementById('keys'));
+  let newKeys = document.createElement('p');
+  newKeys.setAttribute('id', 'keys');
+  let form = document.createElement('form');
+  form.setAttribute('name', 'props')
+
+  // render annotations
+  if (skey == 'annotations') {
     for (let k of Object.keys(configData[key][skey][i])) {
       // console.log('renderNodeConfig fired:', key, skey, i, k, configData[key][skey][i][k])
       let inputField = document.createElement('div');
@@ -96,18 +99,38 @@ function renderNodeConfig(key, skey, i) {
         intermediateConfig[k] = document.getElementById(k).value; 
         console.log('config edited:', k, document.getElementById(k).value); 
       });
+      inputField.appendChild(input);
 
       let label = document.createElement('label')
       label.setAttribute('for', k)
       label.setAttribute('class', 'active');
       label.insertAdjacentText('afterbegin', k)
-
-      inputField.appendChild(input);
       inputField.appendChild(label);
+
       form.appendChild(inputField);
     }
-    newKeys.appendChild(form);
-    config.appendChild(newKeys);
+  };
+
+  // render rotation properties
+  if (skey == 'rotation') {
+    let inputField = document.createElement('div');
+    inputField.setAttribute('class', 'input-field');
+    let currentValue = configData[key][skey];
+    let input = document.createElement('input');
+    input.setAttribute('type', "text");
+    input.setAttribute('value', currentValue);
+    input.setAttribute('id', skey);
+    input.addEventListener('change', (event) => { 
+      edited = true; 
+      intermediateConfig[skey] = document.getElementById(skey).value; 
+      console.log('config edited:', skey, document.getElementById(skey).value); 
+    });
+    inputField.appendChild(input);
+    form.appendChild(inputField);
+  };
+
+  newKeys.appendChild(form);
+  config.appendChild(newKeys);
 }
 
 function renderSceneGraph(configData) {
@@ -125,23 +148,25 @@ function renderSceneGraph(configData) {
     ptag.appendChild(addBtn);
     for (let skey of Object.keys(configData[key])) {
       let ptag2 = document.createElement('p');
-      ptag2.insertAdjacentText('afterbegin', skey)
-      for (let i in configData[key][skey]) {
-        let ptag3 = document.createElement('p');
-        ptag3.setAttribute('class', "waves-effect waves-light btn");
-        ptag3.insertAdjacentText('afterbegin', i);
-        ptag3.onclick = function(){ renderNodeConfig(key, skey, i) };
-        ptag2.appendChild(ptag3);
+      // ptag2.insertAdjacentText('afterbegin', skey)
+      if (skey == 'annotations') {
+        for (let i in configData[key][skey]) {
+          let ptag3 = document.createElement('p');
+          ptag3.setAttribute('class', "waves-effect waves-light btn");
+          ptag3.insertAdjacentText('afterbegin', i);
+          ptag3.onclick = function(){ renderNodeConfig(key, skey, i) };
+          ptag2.appendChild(ptag3);
+        }
+      }
+      if (skey == 'rotation') {
+        let editRot = document.createElement('p');
+        editRot.setAttribute('class', "waves-effect waves-light btn-small");
+        editRot.insertAdjacentText('afterbegin', 'edit rotation');
+        editRot.onclick = function(){ renderNodeConfig(key, skey) };
+        ptag.appendChild(editRot);
       }
       ptag.appendChild(ptag2);
     }
     graph.appendChild(ptag);
   }
 };
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems);
-});

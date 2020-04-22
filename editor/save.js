@@ -10,14 +10,22 @@ function saveConfig() {
         let skey = currentConfigElement['skey'];
         let i = currentConfigElement['i']
 
-        for(k of Object.keys(intermediateConfig)) {
-            config[key][skey][i][k] = intermediateConfig[k];
+        if (skey == 'annotations') {
+            for(k of Object.keys(intermediateConfig)) {
+                config[key][skey][i][k] = intermediateConfig[k];
+            }
+            console.log('updated config:', k, config[key][skey][i][k])
         }
+
+        if (skey == 'rotation') {
+            config[key][skey] = intermediateConfig[skey];
+            console.log('updated config:', skey, config[key][skey])
+        }
+
+
 
         // reset intermediateConfig object
         intermediateConfig = {};
-
-        console.log('updated config:', k, config[key][skey][i][k])
 
         let configText = "var config = "
         configText += JSON.stringify(config)
