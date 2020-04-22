@@ -64,10 +64,17 @@ package.addEventListener('change', (event) => {
       form.setAttribute('name', 'props')
       for (let k of Object.keys(configData[key][skey][i])) {
         // console.log('renderNodeConfig fired:', key, skey, i, k, configData[key][skey][i][k])
+        let inputField = document.createElement('div');
+        inputField.setAttribute('class', 'input-field');
         let currentValue = configData[key][skey][i][k];
         let input = document.createElement('input');
         input.setAttribute('value', currentValue);
-        input.setAttribute('type', "text");
+        if (k == 'color') {
+          input.setAttribute('type', 'color');
+          input.setAttribute('style', 'width:100%');
+        } else {
+          input.setAttribute('type', "text");
+        }
         if (k == 'type') {
           input.disabled = true;
         };
@@ -81,10 +88,12 @@ package.addEventListener('change', (event) => {
 
         let label = document.createElement('label')
         label.setAttribute('for', k)
+        label.setAttribute('class', 'active');
         label.insertAdjacentText('afterbegin', k)
 
-        form.appendChild(input);
-        form.appendChild(label);
+        inputField.appendChild(input);
+        inputField.appendChild(label);
+        form.appendChild(inputField);
       }
       newKeys.appendChild(form);
       config.appendChild(newKeys);
