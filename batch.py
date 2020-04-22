@@ -6,9 +6,9 @@ imgDir = '../ISAC/imgs/'
 outDir = '../ISAC/tours/'
 
 if sys.platform == 'win32':
-    exe_path = './builds/ginger.exe'
+    exe_path = './builds/cli/ginger.exe'
 elif sys.platform == 'darwin':
-    exe_path = './builds/ginger'
+    exe_path = './builds/cli/ginger'
 else:
     print('Unsupported OS, exiting.')
     sys.exit(2)
