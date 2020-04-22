@@ -86,7 +86,7 @@ function renderNodeConfig(key, skey, i) {
         "color": "black",
         "xoffset": 0,
         "yoffset": 0,
-        "zoffset": 0
+        "zoffset": -5
       }
       props = newText;
       intermediateConfig = newText;
