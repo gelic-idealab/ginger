@@ -219,7 +219,7 @@ function renderSceneGraph(configData) {
           for (let i in configData[key][skey]) {
             let ptag3 = document.createElement('p');
             ptag3.setAttribute('class', "waves-effect waves-light btn");
-            ptag3.insertAdjacentText('afterbegin', i);
+            ptag3.insertAdjacentText('afterbegin', configData[key][skey][i].value || i);
             ptag3.onclick = function(){ renderNodeConfig(key, skey, i) };
             ptag2.appendChild(ptag3);
           }
