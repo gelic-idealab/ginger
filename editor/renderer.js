@@ -115,9 +115,13 @@ function renderNodeConfig(key, skey, i) {
   if (skey == 'rotation') {
     let inputField = document.createElement('div');
     inputField.setAttribute('class', 'input-field');
-    let currentValue = configData[key][skey];
     let input = document.createElement('input');
     input.setAttribute('type', "text");
+
+    let currentValue = configData[key][skey];
+    if (currentValue == undefined) {
+      currentValue = "0 0 0"
+    }
     input.setAttribute('value', currentValue);
     input.setAttribute('id', skey);
     input.addEventListener('change', (event) => { 
@@ -157,16 +161,16 @@ function renderSceneGraph(configData) {
           ptag3.onclick = function(){ renderNodeConfig(key, skey, i) };
           ptag2.appendChild(ptag3);
         }
+        ptag.appendChild(ptag2);
       }
-      if (skey == 'rotation') {
-        let editRot = document.createElement('p');
-        editRot.setAttribute('class', "waves-effect waves-light btn-small");
-        editRot.insertAdjacentText('afterbegin', 'edit rotation');
-        editRot.onclick = function(){ renderNodeConfig(key, skey) };
-        ptag.appendChild(editRot);
-      }
-      ptag.appendChild(ptag2);
     }
+
+    // edit rotation button
+    let editRot = document.createElement('p');
+    editRot.setAttribute('class', "waves-effect waves-light btn-small");
+    editRot.insertAdjacentText('afterbegin', 'edit rotation');
+    editRot.onclick = function(){ renderNodeConfig(key, 'rotation') };
+    ptag.appendChild(editRot);
     graph.appendChild(ptag);
   }
 };
