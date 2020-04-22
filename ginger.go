@@ -46,6 +46,8 @@ func main() {
 	var files []string
 	var fileCounter = -1
 
+	var nodeIds []string
+
 	pathErr := filepath.Walk(*dir, func(path string, info os.FileInfo, err error) error {
 		files = append(files, path)
 		fileCounter++
@@ -84,6 +86,7 @@ func main() {
 		if row_counter <= matrixRows {
 			if column_counter <= *columns {
 				copyAndRenameImg(OUTPUT_IMG_DIR, files[fileIndex], row_counter, column_counter)
+				nodeIds = append(nodeIds, (strconv.Itoa(row_counter) + "_" + strconv.Itoa(column_counter)))
 				fileIndex++
 				if is_incrementing {
 					if row_counter < matrixRows {
@@ -134,6 +137,17 @@ func main() {
 		fmt.Println(err)
 	}
 
+	fmt.Println("Generate config.js...")
+	config := "var config = {"
+	for i := 0; i < len(nodeIds); i++ {
+		config += `"` + nodeIds[i] + `"` + `: {"annotations": [], "rotation": "0 0 0"},`
+	}
+	config += "}; try { module.exports = config; } catch {};"
+	configErr := ioutil.WriteFile(path.Join(OUTPUT_STATIC, "config.js"), []byte(config), 0644)
+	if configErr != nil {
+		fmt.Println(configErr)
+	}
+
 	fmt.Println("Done.")
 
 	if *serve {
@@ -147,9 +161,9 @@ func main() {
 }
 
 func copyAndRenameImg(outputImgDir string, srcPath string, r int, c int) string {
+	id := strconv.Itoa(r) + "_" + strconv.Itoa(c)
 	ext := filepath.Ext(srcPath)
-	var newPath string
-	newPath = path.Join(outputImgDir, strconv.Itoa(r)+"_"+strconv.Itoa(c)+ext)
+	newPath := path.Join(outputImgDir, id+ext)
 	copyFile(srcPath, newPath)
 	return newPath
 }
