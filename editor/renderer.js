@@ -14,6 +14,9 @@ var indexPath;
 var configPath;
 var configData;
 
+var nodeMap = { current: "", previous: ""};
+
+
 package.addEventListener('change', (event) => {
 
   for(var i = 0; i < package.files.length; i++) {
@@ -54,6 +57,10 @@ package.addEventListener('change', (event) => {
   sceneGraph.appendChild(graph);
 
   renderSceneGraph(configData);
+
+  // highlight starting node in scene graph
+  let nodeChangeEvent = new CustomEvent('nodeChange', {detail: {here: configData.start.node}})
+  document.dispatchEvent(nodeChangeEvent);
 
   // reset properties panel
   let config = document.getElementById('config');
@@ -238,9 +245,14 @@ function renderSceneGraph(configData) {
   }
 };
 
+
 window.document.addEventListener('nodeChange', handleEvent, false)
 function handleEvent(e) {
   console.log('a-frame event, nodeChange:', e.detail)
-  let currentNode = document.getElementById(e.detail.here)
-  currentNode.setAttribute('style', "color:blue");
+  nodeMap.previous = nodeMap.current;
+  nodeMap.current = e.detail.here;
+  let currentNode = document.getElementById(nodeMap.current);
+  currentNode.setAttribute('style', "color:red");
+  let previousNode = document.getElementById(nodeMap.previous);
+  previousNode.removeAttribute('style');
 }
