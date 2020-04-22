@@ -139,6 +139,7 @@ func main() {
 
 	fmt.Println("Generate config.js...")
 	config := "var config = {"
+	config += `"start": {"node": "1_1", "cameraRotation": "0 0 0"},`
 	for i := 0; i < len(nodeIds); i++ {
 		config += `"` + nodeIds[i] + `"` + `: {"annotations": [], "rotation": "0 0 0"},`
 	}

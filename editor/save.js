@@ -10,6 +10,12 @@ function saveConfig() {
         let skey = currentConfigElement['skey'];
         let i = currentConfigElement['i']
 
+        if (key == 'start') {
+            for(k of Object.keys(intermediateConfig)) {
+                config[key][k] = intermediateConfig[k];
+            }
+        }
+
         if (skey == 'annotations') {
             if (i == 'new') {
                 config[key][skey].push(intermediateConfig);
