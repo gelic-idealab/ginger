@@ -237,3 +237,10 @@ function renderSceneGraph(configData) {
     graph.appendChild(ptag);
   }
 };
+
+window.document.addEventListener('nodeChange', handleEvent, false)
+function handleEvent(e) {
+  console.log('a-frame event, nodeChange:', e.detail)
+  let currentNode = document.getElementById(e.detail.here)
+  currentNode.setAttribute('style', "color:blue");
+}

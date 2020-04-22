@@ -26,6 +26,7 @@ AFRAME.registerComponent('set-image', {
                 // console.log(data);
                 // console.log(el);
                 console.log(current);
+               
                 // Wait for fade to complete.
                 setTimeout(function () {
                     // Set image.
@@ -43,6 +44,8 @@ AFRAME.registerComponent('set-image', {
 
                     renderAnnontations(current.here);
                     applyOrientation(current.here);
+                    let event = new CustomEvent('nodeChange', {detail: current})
+                    window.parent.document.dispatchEvent(event);
 
                 }, data.dur);
             }
