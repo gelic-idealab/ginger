@@ -12,6 +12,7 @@ const package = document.getElementById('packageLoader')
 
 var indexPath;
 var configPath;
+var configData;
 
 package.addEventListener('change', (event) => {
 
@@ -25,7 +26,7 @@ package.addEventListener('change', (event) => {
   }
 
   console.log('loading tour:', indexPath, configPath);
-  var configData = require(configPath);
+  configData = require(configPath);
 
   // setting up iframe embedding of tour
   let parent = document.getElementById('frame');
@@ -48,57 +49,68 @@ package.addEventListener('change', (event) => {
     console.log('removing old sceneGraph')
     sceneGraph.removeChild(oldGraph);
   }
-  let graph = document.createElement('div');
+  var graph = document.createElement('div');
   graph.setAttribute('id', 'graph');
   sceneGraph.appendChild(graph);
 
+  renderSceneGraph(configData);
 
-  // render properties for selected node
-  function renderNodeConfig(key, skey, i) {
-      currentConfigElement = { 'key': key, 'skey': skey, 'i': i };
-      let config = document.getElementById('config');
-      config.removeChild(document.getElementById('keys'));
-      let newKeys = document.createElement('p');
-      newKeys.setAttribute('id', 'keys');
-      let form = document.createElement('form');
-      form.setAttribute('name', 'props')
-      for (let k of Object.keys(configData[key][skey][i])) {
-        // console.log('renderNodeConfig fired:', key, skey, i, k, configData[key][skey][i][k])
-        let inputField = document.createElement('div');
-        inputField.setAttribute('class', 'input-field');
-        let currentValue = configData[key][skey][i][k];
-        let input = document.createElement('input');
-        input.setAttribute('value', currentValue);
-        if (k == 'color') {
-          input.setAttribute('type', 'color');
-          input.setAttribute('style', 'width:100%');
-        } else {
-          input.setAttribute('type', "text");
-        }
-        if (k == 'type') {
-          input.disabled = true;
-        };
-        
-        input.setAttribute('id', k);
-        input.addEventListener('change', (event) => { 
-          edited = true; 
-          intermediateConfig[k] = document.getElementById(k).value; 
-          console.log('config edited:', k, document.getElementById(k).value); 
-        });
+  // reset properties panel
+  let config = document.getElementById('config');
+  config.removeChild(document.getElementById('keys'));
+  let newKeys = document.createElement('p');
+  newKeys.setAttribute('id', 'keys');
+  config.appendChild(newKeys);
 
-        let label = document.createElement('label')
-        label.setAttribute('for', k)
-        label.setAttribute('class', 'active');
-        label.insertAdjacentText('afterbegin', k)
+});
 
-        inputField.appendChild(input);
-        inputField.appendChild(label);
-        form.appendChild(inputField);
+// render properties for selected node
+function renderNodeConfig(key, skey, i) {
+    currentConfigElement = { 'key': key, 'skey': skey, 'i': i };
+    let config = document.getElementById('config');
+    config.removeChild(document.getElementById('keys'));
+    let newKeys = document.createElement('p');
+    newKeys.setAttribute('id', 'keys');
+    let form = document.createElement('form');
+    form.setAttribute('name', 'props')
+    for (let k of Object.keys(configData[key][skey][i])) {
+      // console.log('renderNodeConfig fired:', key, skey, i, k, configData[key][skey][i][k])
+      let inputField = document.createElement('div');
+      inputField.setAttribute('class', 'input-field');
+      let currentValue = configData[key][skey][i][k];
+      let input = document.createElement('input');
+      if (k == 'color') {
+        input.setAttribute('type', 'color');
+        input.setAttribute('style', 'width:100%');
+      } else {
+        input.setAttribute('type', "text");
       }
-      newKeys.appendChild(form);
-      config.appendChild(newKeys);
-  }
+      if (k == 'type') {
+        input.disabled = true;
+      };
 
+      input.setAttribute('value', currentValue);
+      input.setAttribute('id', k);
+      input.addEventListener('change', (event) => { 
+        edited = true; 
+        intermediateConfig[k] = document.getElementById(k).value; 
+        console.log('config edited:', k, document.getElementById(k).value); 
+      });
+
+      let label = document.createElement('label')
+      label.setAttribute('for', k)
+      label.setAttribute('class', 'active');
+      label.insertAdjacentText('afterbegin', k)
+
+      inputField.appendChild(input);
+      inputField.appendChild(label);
+      form.appendChild(inputField);
+    }
+    newKeys.appendChild(form);
+    config.appendChild(newKeys);
+}
+
+function renderSceneGraph(configData) {
   // render scene graph
   for (let key in configData) {
     let ptag = document.createElement('p');
@@ -125,8 +137,9 @@ package.addEventListener('change', (event) => {
     }
     graph.appendChild(ptag);
   }
+};
 
-});
+
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
