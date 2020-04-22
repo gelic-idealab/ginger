@@ -66,7 +66,6 @@ package.addEventListener('change', (event) => {
 
 // render function for properties of selected annotation
 function renderNodeConfig(key, skey, i) {
-  currentConfigElement = { 'key': key, 'skey': skey, 'i': i };
   let config = document.getElementById('config');
   config.removeChild(document.getElementById('keys'));
   let newKeys = document.createElement('p');
@@ -76,11 +75,34 @@ function renderNodeConfig(key, skey, i) {
 
   // render annotations
   if (skey == 'annotations') {
-    for (let k of Object.keys(configData[key][skey][i])) {
-      // console.log('renderNodeConfig fired:', key, skey, i, k, configData[key][skey][i][k])
+    // if annotation does not exist, create one with default values
+    if (i == 'newText') {
+      currentConfigElement = { 'key': key, 'skey': skey, 'i': 'new' };
+      let newText = {
+        "type": "text",
+        "value": "",
+        "width": 10,
+        "height": 10,
+        "color": "black",
+        "xoffset": 0,
+        "yoffset": 0,
+        "zoffset": 0
+      }
+      props = newText;
+      intermediateConfig = newText;
+      edited = true;
+
+    } else {
+      currentConfigElement = { 'key': key, 'skey': skey, 'i': i };
+      props = configData[key][skey][i];
+    }
+
+    // iterate property keys and render
+    for (let k of Object.keys(props)) {
+      // console.log('renderNodeConfig fired:', key, skey, i, k, props[k])
       let inputField = document.createElement('div');
       inputField.setAttribute('class', 'input-field');
-      let currentValue = configData[key][skey][i][k];
+      let currentValue = props[k];
       let input = document.createElement('input');
       if (k == 'color') {
         input.setAttribute('type', 'color');
@@ -113,6 +135,7 @@ function renderNodeConfig(key, skey, i) {
 
   // render rotation properties
   if (skey == 'rotation') {
+    currentConfigElement = { 'key': key, 'skey': skey };
     let inputField = document.createElement('div');
     inputField.setAttribute('class', 'input-field');
     let input = document.createElement('input');
@@ -145,6 +168,7 @@ function renderSceneGraph(configData) {
     ptag.insertAdjacentText('afterbegin', key);
     let addBtn = document.createElement('a');
     addBtn.setAttribute('class', "waves-effect waves-light btn");
+    addBtn.onclick = function() { renderNodeConfig(key, 'annotations', 'newText')}
     let btnIcon = document.createElement('i');
     btnIcon.setAttribute('class', "material-icons");
     btnIcon.insertAdjacentText('afterbegin', 'add')

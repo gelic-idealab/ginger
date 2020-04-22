@@ -11,10 +11,16 @@ function saveConfig() {
         let i = currentConfigElement['i']
 
         if (skey == 'annotations') {
-            for(k of Object.keys(intermediateConfig)) {
-                config[key][skey][i][k] = intermediateConfig[k];
-            }
+            if (i == 'new') {
+                config[key][skey].push(intermediateConfig);
+                console.log('creating new annotation:', intermediateConfig);
+            } else {
+                for(k of Object.keys(intermediateConfig)) {
+                    config[key][skey][i][k] = intermediateConfig[k];
+                }
             console.log('updated config:', k, config[key][skey][i][k])
+            }
+
         }
 
         if (skey == 'rotation') {
