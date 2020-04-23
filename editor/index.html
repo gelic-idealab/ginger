@@ -7,7 +7,6 @@
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
     <link rel="stylesheet" type="text/css" href="./node_modules/materialize-css/dist/css/materialize.min.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./node_modules/material-design-icons/iconfont/material-icons.css" rel="stylesheet">
 
     <script src="./save.js"></script>
 
@@ -26,12 +25,12 @@
             <div>
           </li>
 
-          <li>
-            <a class="waves-effect waves-light btn"><i class="material-icons left">undo</i>Undo</a>
+          <!-- <li>
+            <a class="waves-effect waves-light btn">Undo</a>
           </li>
           <li>
-            <a class="waves-effect waves-light btn"><i class="material-icons left">redo</i>Redo</a>
-          </li>
+            <a class="waves-effect waves-light btn">Redo</a>
+          </li> -->
 
         </ul>
       </div>
@@ -59,8 +58,8 @@
           <h5>Properties</h5>
           <div id="config" class="card-panel">
             <div id="keys"></div>
-          <a id="saveBtn" class="waves-effect waves-light btn" onclick="saveConfig()"><i class="material-icons left">save</i>Save</a>
-          <a id="deleteBtn" class="waves-effect waves-light btn red" onclick="deleteConfig()"><i class="material-icons left">delete</i>Delete</a>
+          <a id="saveBtn" class="waves-effect waves-light btn" onclick="saveConfig()">Save</a>
+          <a id="deleteBtn" class="waves-effect waves-light btn red" onclick="deleteConfig()">Delete</a>
           </div>
         </div>
 

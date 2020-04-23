@@ -205,12 +205,9 @@ function renderSceneGraph(configData) {
     ptag.insertAdjacentText('afterbegin', key);
     if (key != 'start') {
       let addBtn = document.createElement('a');
-      addBtn.setAttribute('class', "waves-effect waves-light btn");
+      addBtn.setAttribute('class', "waves-effect waves-light btn-small");
       addBtn.onclick = function() { renderNodeConfig(key, 'annotations', 'newText')}
-      let btnIcon = document.createElement('i');
-      btnIcon.setAttribute('class', "material-icons");
-      btnIcon.insertAdjacentText('afterbegin', 'add')
-      addBtn.appendChild(btnIcon);
+      addBtn.insertAdjacentText('afterbegin', '+')
       ptag.appendChild(addBtn);
       for (let skey of Object.keys(configData[key])) {
         let ptag2 = document.createElement('p');
@@ -254,5 +251,7 @@ function handleEvent(e) {
   let currentNode = document.getElementById(nodeMap.current);
   currentNode.setAttribute('style', "color:red");
   let previousNode = document.getElementById(nodeMap.previous);
-  previousNode.removeAttribute('style');
+  if (previousNode != null) {
+    previousNode.removeAttribute('style');
+  }
 }
