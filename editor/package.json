@@ -7,13 +7,18 @@
     "start": "electron ."
   },
   "repository": "https://github.com/Grainger-Engineering-Library/ginger",
-  "keywords": [],
+  "keywords": [
+    "360",
+    "a-frame",
+    "VR"
+  ],
   "author": "Grainger Engineering Library IDEA Lab",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^8.1.1"
   },
   "dependencies": {
+    "material-icons": "^0.3.1",
     "materialize-css": "^1.0.0"
   }
 }

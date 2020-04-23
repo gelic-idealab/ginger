@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
     <link rel="stylesheet" type="text/css" href="./node_modules/materialize-css/dist/css/materialize.min.css"/>
+    <link rel="stylesheet" href="./node_modules/material-icons/iconfont/material-icons.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="./save.js"></script>
@@ -15,22 +16,22 @@
 
   </head>
   <body>
-    <nav class="indigo">
+    <nav class="">
       <div class="nav-wrapper">
         <ul class="left">
 
           <li>
-            <div class="file-field input-field btn waves-effect waves-light">
-              <input type="file" id="packageLoader" name="packageDir" webkitdirectory>Open
-            <div>
+            <a class="file-field input-field waves-effect waves-light btn"><i class="material-icons small">folder_open</i>
+                <input type="file" id="packageLoader" name="packageDir" webkitdirectory>
+            </a>
           </li>
 
-          <!-- <li>
-            <a class="waves-effect waves-light btn">Undo</a>
+          <li>
+            <a class="waves-effect waves-light btn"><i class="material-icons">undo</i></a>
           </li>
           <li>
-            <a class="waves-effect waves-light btn">Redo</a>
-          </li> -->
+            <a class="waves-effect waves-light btn"><i class="material-icons">redo</i></a>
+          </li>
 
         </ul>
       </div>
@@ -38,28 +39,28 @@
 
     <!-- Page Layout here -->
     
-    <div>
-      <div class="row">
+    <div style="height: 90vh;">
+      <div class="row" style="height: 100%;">
 
-        <div class="col s2">
-          <h5>Scene Graph</h5>
-          <div class="card-panel" id="sceneGraph">
+        <div class="col s2" style="height: 100%;">
+          <h5 style="text-align: center;">Scene</h5>
+          <div class="card-panel blue-grey" id="sceneGraph">
             <div id="graph"></div>
           </div>
           
         </div>
 
-        <div class="col s8">
-          <br>
-          <div id="frame" style="text-align:center"></div>
+        <div class="col s8" style="height: 100%;">
+          <div id="frame" style="height: 100%;">
+          </div>
         </div>
 
-        <div class="col s2">
-          <h5>Properties</h5>
-          <div id="config" class="card-panel">
+        <div class="col s2" style="height: 100%;">
+          <h5 style="text-align: center;">Properties</h5>
+          <div id="config" class="card-panel blue-grey">
             <div id="keys"></div>
-          <a id="saveBtn" class="waves-effect waves-light btn" onclick="saveConfig()">Save</a>
-          <a id="deleteBtn" class="waves-effect waves-light btn red" onclick="deleteConfig()">Delete</a>
+          <a id="saveBtn" class="waves-effect waves-light btn-small" onclick="saveConfig()">Save</a>
+          <a id="deleteBtn" class="waves-effect waves-light btn-small red" onclick="deleteConfig()">Delete</a>
           </div>
         </div>
 
