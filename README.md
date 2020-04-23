@@ -35,11 +35,8 @@ You would then indicate that your layout matrix has 3 columns:
 ```
 
 ## Dev server
-To use the -s (serve) argument, you must first generate self-signed certificates. You can use the cert.sh script to do this. 
-```
-chmod +x cert.sh
-./cert.sh
-```
+To preview generated tour packages in a web browser, provide the ```-s``` (serve) flag. The generated tour will be available at localhost, port 5000. 
+
 
 ## A-frame
 We use the [A-frame](https://github.com/aframevr/aframe) WebXR library to create web-embeddable VR tours.
