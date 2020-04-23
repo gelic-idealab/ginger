@@ -43,3 +43,8 @@ chmod +x cert.sh
 
 ## A-frame
 We use the [A-frame](https://github.com/aframevr/aframe) WebXR library to create web-embeddable VR tours.
+
+## Ginger Editor
+A desktop application that allows you to add text and geometric annotations to ```ginger``` tour packages, as well as tweak image orientations and tour starting place. Pre-built binaries for Windows, Mac OSX, and Linux will be available.
+
+![editor_window](./editor_window.png)
