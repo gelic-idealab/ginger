@@ -149,15 +149,15 @@ func main() {
 		fmt.Println(configErr)
 	}
 
-	fmt.Println("Done.")
+	fmt.Println("Done.\n")
 
 	if *serve {
 		// Set up the handler to serve the generated files
 		fs := http.FileServer(http.Dir(OUTPUT))
 		http.Handle("/", fs)
 
-		fmt.Println("Serving. Go to https://127.0.0.1:8443/")
-		http.ListenAndServeTLS(":8443", "cert.pem", "key.pem", nil)
+		fmt.Println("Serving. Go to http://localhost:5000/")
+		http.ListenAndServe(":5000", nil)
 	}
 }
 
