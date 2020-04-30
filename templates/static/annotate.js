@@ -10,6 +10,8 @@ function renderAnnontations(nodeId) {
         if (local) {
             for (var a = 0; a < local.length; a++) {
                 if (local[a].type == "text") {
+
+                    // TODO(rob): don't hardcode this, simply iterate over the object keys and apply the value
                     let annotation = document.createElement("a-text");
                     annotation.setAttribute("value", local[a].value);
                     annotation.setAttribute("color", local[a].color);
