@@ -32,7 +32,7 @@
           <div class="" id="sceneGraph">
             <ul class="collapsible" data-collapsible="accordion">
               <li v-for="key in Object.keys(configData)" :key="key">
-                <div class="collapsible-header teal lighten-3"><span>{{ key }}</span></div>
+                <div class="collapsible-header grey lighten-3"><span>{{ key }}</span></div>
                   <div class="collapsible-body">
                     <div v-for="key2 in Object.keys(configData[key])" :key="key2">
                       <span>{{ key2 }}</span>
@@ -43,7 +43,7 @@
                         :class="isActive(key, key2, index)" 
                         v-on:click="makeActive(key, key2, index)"
                         >
-                          {{ i.value }}
+                          {{ i.value || index }}
                         </a>
                       </div>
                       <div class="collection" v-else-if="key2=='rotation' || key2=='cameraRotation' || key2=='node'">
@@ -70,7 +70,24 @@
         <div class="col s2" style="height: 100%;">
           <h5 style="text-align: center;">Properties</h5>
           <div id="config" class="card-panel blue-grey lighten-3">
-            <div id="keys"></div>
+            <div id="keys">
+              <form v-if="activelyEditing.index != null">
+                <div class="row" v-for="(val, key) in activelyEditing.value" :key="key">
+                  <div class="input-field">
+                    <input :value="val" :id="key" type="text">
+                    <label class="active" :for="key">{{ key }}</label>
+                  </div>
+                </div>
+              </form>
+              <form v-if="activelyEditing.index == null">
+                <div class="row">
+                  <div class="input-field">
+                    <input :value="activelyEditing.value" :id="activelyEditing.key2" type="text">
+                    <label class="active" :for="activelyEditing.key2">{{ activelyEditing.key2 }}</label>
+                  </div>
+                </div>
+              </form>
+            </div>
           <a id="saveBtn" class="waves-effect waves-light btn-small" onclick="saveConfig()">Save</a>
           <a id="deleteBtn" class="waves-effect waves-light btn-small red" onclick="deleteConfig()">Delete</a>
           </div>
@@ -101,7 +118,8 @@ export default {
       activelyEditing: {
         key: '',
         key2: '',
-        index: null
+        index: null,
+        value: null
       }
     }
   },
@@ -133,6 +151,11 @@ export default {
       this.activelyEditing.key = key;
       this.activelyEditing.key2 = key2;
       this.activelyEditing.index = index;
+      if (index != null) {
+        this.activelyEditing.value = this.configData[key][key2][index]
+      } else {
+        this.activelyEditing.value = this.configData[key][key2]
+      }
     }
   },
   mounted () {
