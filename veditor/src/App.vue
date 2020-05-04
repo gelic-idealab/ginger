@@ -163,6 +163,12 @@ export default {
       } else {
         this.configData[this.activelyEditing.key][this.activelyEditing.key2] = this.activelyEditing.value
       }
+
+      let configText = "var config = "
+      configText += JSON.stringify(this.configData)
+      configText += "; try { module.exports = config; } catch {};"
+
+      fs.writeFile(this.configPath, configText, (err) => { if (err) { console.log(err); } })
     }
   },
   mounted () {
