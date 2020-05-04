@@ -74,7 +74,7 @@
               <form v-if="activelyEditing.index != null">
                 <div class="row" v-for="(val, key) in activelyEditing.value" :key="key">
                   <div class="input-field">
-                    <input :value="val" :id="key" type="text">
+                    <input v-model="activelyEditing.value[key]" :id="key" type="text" @change="saveConfig">
                     <label class="active" :for="key">{{ key }}</label>
                   </div>
                 </div>
@@ -82,14 +82,14 @@
               <form v-if="activelyEditing.index == null">
                 <div class="row">
                   <div class="input-field">
-                    <input :value="activelyEditing.value" :id="activelyEditing.key2" type="text">
+                    <input v-model="activelyEditing.value" :id="activelyEditing.key2" type="text" @change="saveConfig">
                     <label class="active" :for="activelyEditing.key2">{{ activelyEditing.key2 }}</label>
                   </div>
                 </div>
               </form>
             </div>
-          <a id="saveBtn" class="waves-effect waves-light btn-small" onclick="saveConfig()">Save</a>
-          <a id="deleteBtn" class="waves-effect waves-light btn-small red" onclick="deleteConfig()">Delete</a>
+          <!-- <button id="saveBtn" class="waves-effect waves-light btn-small">Save</button> -->
+          <button id="deleteBtn" class="waves-effect waves-light btn-small red" onclick="deleteConfig()">Delete</button>
           </div>
         </div>
 
@@ -155,6 +155,13 @@ export default {
         this.activelyEditing.value = this.configData[key][key2][index]
       } else {
         this.activelyEditing.value = this.configData[key][key2]
+      }
+    },
+    saveConfig() {
+      if (this.activelyEditing.index != null) {
+        this.configData[this.activelyEditing.key][this.activelyEditing.key2][this.activelyEditing.index] = this.activelyEditing.value
+      } else {
+        this.configData[this.activelyEditing.key][this.activelyEditing.key2] = this.activelyEditing.value
       }
     }
   },
