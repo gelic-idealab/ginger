@@ -29,10 +29,22 @@
 
         <div class="col s2" style="height: 100%;">
           <h5 style="text-align: center;">Scene</h5>
-          <div class="card-panel blue-grey lighten-3" id="sceneGraph">
-            <div class="section" v-for="key in configData" :key="key">
-              <p>{{ key }}</p>
-            </div>
+          <div class="" id="sceneGraph">
+            <ul class="collapsible" data-collapsible="accordion">
+              <li v-for="key in Object.keys(configData)" :key="key">
+                <div class="collapsible-header"><span>{{ key }}</span></div>
+                  <div class="collapsible-body">
+                    <div v-for="key2 in Object.keys(configData[key])" :key="key2">
+                      <span>{{ key2 }}</span>
+                      <div class="collection" v-if="key2=='annotations' && configData[key][key2].length > 0">
+                        <a href="#!" class="collection-item" v-for="i in configData[key][key2]" :key="i+i.value">
+                          {{ i.value || i }}
+                        </a>
+                      </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
           
         </div>
@@ -87,7 +99,6 @@ export default {
         if (err) {
           console.log(err)
         } else {
-          console.log('raw:', data)
           data = data.split('=')[1]
           data = data.split(';')[0]
           this.configData = JSON.parse(data)
