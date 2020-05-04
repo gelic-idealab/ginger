@@ -32,17 +32,26 @@
           <div class="" id="sceneGraph">
             <ul class="collapsible" data-collapsible="accordion">
               <li v-for="key in Object.keys(configData)" :key="key">
-                <div class="collapsible-header"><span>{{ key }}</span></div>
+                <div class="collapsible-header teal lighten-3"><span>{{ key }}</span></div>
                   <div class="collapsible-body">
                     <div v-for="key2 in Object.keys(configData[key])" :key="key2">
                       <span>{{ key2 }}</span>
                       <div class="collection" v-if="key2=='annotations' && configData[key][key2].length > 0">
-                        <a href="#!" class="collection-item" v-for="i in configData[key][key2]" :key="i+i.value">
-                          {{ i.value || i }}
+                        <a href="#!" class="collection-item" 
+                        v-for="(i,index) in configData[key][key2]" 
+                        :key="index+i.value" 
+                        :class="isActive(key, key2, index)" 
+                        v-on:click="makeActive(key, key2, index)"
+                        >
+                          {{ i.value }}
                         </a>
                       </div>
                       <div class="collection" v-else-if="key2=='rotation' || key2=='cameraRotation' || key2=='node'">
-                        <a href="#!" class="collection-item">{{ configData[key][key2] }}</a>
+                        <a href="#!" class="collection-item"
+                        :class="isActive(key, key2)" 
+                        v-on:click="makeActive(key, key2)"
+                        >
+                        {{ configData[key][key2] }}</a>
                       </div>
                   </div>
                 </div>
@@ -88,7 +97,12 @@ export default {
     return {
       indexPath: '',
       configPath: '',
-      configData: {}
+      configData: {},
+      activelyEditing: {
+        key: '',
+        key2: '',
+        index: null
+      }
     }
   },
   methods: {
@@ -107,6 +121,18 @@ export default {
           this.configData = JSON.parse(data)
         }
       });
+    },
+    isActive(key, key2, index=null) {
+      if (this.activelyEditing.key == key && this.activelyEditing.key2 == key2 && this.activelyEditing.index == index) {
+        return "active"
+      } else {
+        return ""
+      }
+    },
+    makeActive(key, key2, index=null) {
+      this.activelyEditing.key = key;
+      this.activelyEditing.key2 = key2;
+      this.activelyEditing.index = index;
     }
   },
   mounted () {
