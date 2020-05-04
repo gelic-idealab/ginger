@@ -41,6 +41,9 @@
                           {{ i.value || i }}
                         </a>
                       </div>
+                      <div class="collection" v-else-if="key2=='rotation' || key2=='cameraRotation' || key2=='node'">
+                        <a href="#!" class="collection-item">{{ configData[key][key2] }}</a>
+                      </div>
                   </div>
                 </div>
               </li>
