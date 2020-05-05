@@ -46,6 +46,9 @@
                           {{ i.value || index }}
                         </a>
                       </div>
+                      <div class="center-align" v-if="key2=='annotations'">
+                        <a class="btn-floating waves-effect waves-light btn-small" @click="addAnnotation(key)"><i class="material-icons">add</i></a>
+                      </div>
                       <div class="collection" v-else-if="key2=='rotation' || key2=='cameraRotation' || key2=='node'">
                         <a href="#!" class="collection-item"
                         :class="isActive(key, key2)" 
@@ -169,6 +172,18 @@ export default {
       configText += "; try { module.exports = config; } catch {};"
 
       fs.writeFile(this.configPath, configText, (err) => { if (err) { console.log(err); } })
+    },
+    addAnnotation(key) {
+      let newAnnotation = {
+        "type": "text",
+        "value": "",
+        "width": 10,
+        "height": 10,
+        "color": "black",
+        "zoffset": -5
+      }
+      let length = this.configData[key]['annotations'].push(newAnnotation)
+      this.makeActive(key, 'annotations', length-1)
     }
   },
   mounted () {
