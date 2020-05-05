@@ -125,7 +125,7 @@ func main() {
 	fmt.Println("Format and generate index.html...")
 	htmlTemplatePath := path.Join(TEMPLATES, "template.html")
 	htmlTemplateText := readHtmlTemplate(htmlTemplatePath)
-
+	// TODO(rob): use http/template to format and execute template.html
 	html := strings.Replace(htmlTemplateText, "{{num_rows}}", strconv.Itoa(matrixRows), 1)
 	html = strings.Replace(html, "{{num_cols}}", strconv.Itoa(*columns), 1)
 	html = strings.Replace(html, "{{img_dir}}", "'"+IMG_STATIC_REL_PATH+"'", 1)
