@@ -41,7 +41,7 @@ func main() {
 	TEMPLATES := "templates"
 	TEMPLATES_STATIC := path.Join(TEMPLATES, "static")
 
-	_ = os.MkdirAll(OUTPUT_IMG_DIR, 0666)
+	_ = os.MkdirAll(OUTPUT_IMG_DIR, 0755)
 
 	var files []string
 	var fileCounter = -1
