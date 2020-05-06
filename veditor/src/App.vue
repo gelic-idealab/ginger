@@ -32,12 +32,15 @@
           <div class="" id="sceneGraph">
             <ul class="collapsible" data-collapsible="accordion">
               <li v-for="key in Object.keys(configData)" :key="key">
-                <div class="collapsible-header grey lighten-3"><span>{{ key }}</span></div>
+                <div class="collapsible-header grey lighten-3">
+                  <span>{{ key }}</span>
+                  <span v-if="configData[key]['annotations']" class="new badge" data-badge-caption="annotations">{{ configData[key]['annotations'].length }}</span>
+                </div>
                   <div class="collapsible-body">
                     <div v-for="key2 in Object.keys(configData[key])" :key="key2">
                       <span>{{ key2 }}</span>
                       <div class="collection" v-if="key2=='annotations' && configData[key][key2].length > 0">
-                        <a href="#!" class="collection-item" 
+                        <a href="#!" class="collection-item truncate" 
                         v-for="(i,index) in configData[key][key2]" 
                         :key="index+i.value" 
                         :class="isActive(key, key2, index)" 
@@ -66,13 +69,13 @@
 
         <div class="col s8" style="height: 100%;">
           <div id="frame" style="height: 100%;">
-            <iframe :src="indexPath" style="position: relative; height: 100%; width: 100%;" frameborder="0" scrolling="no"></iframe>
+            <iframe allow="fullscreen" :src="indexPath" style="position: relative; height: 100%; width: 100%;" frameborder="0" scrolling="no"></iframe>
           </div>
         </div>
 
         <div class="col s2" style="height: 100%;">
           <h5 style="text-align: center;">Properties</h5>
-          <div id="config" class="card-panel blue-grey lighten-3">
+          <div id="config" class="card-panel grey lighten-3">
             <div id="keys">
               <form v-if="activelyEditing.index != null">
                 <div class="row" v-for="(val, key) in activelyEditing.value" :key="key">
@@ -130,6 +133,13 @@ export default {
       }
     }
   },
+  mounted: function() {
+    M.AutoInit()
+
+    window.addEventListener('message', function (msg) {
+      console.log('received message from iframe:', msg.data)
+    })
+  },
   methods: {
     loadTourPackage(e) {
       let files = e.target.files;
@@ -142,7 +152,6 @@ export default {
           console.log(err)
         } else {
           data = data.split('=')[1]
-          data = data.split(';')[0]
           this.configData = JSON.parse(data)
         }
       });
@@ -176,8 +185,6 @@ export default {
       }
       let configText = "var config = "
       configText += JSON.stringify(this.configData)
-      configText += "; try { module.exports = config; } catch {};"
-
       fs.writeFile(this.configPath, configText, (err) => { if (err) { console.log(err); } })
     },
     addAnnotation(key) {
@@ -197,10 +204,7 @@ export default {
       this.makeActive(null, null, null)
       this.saveConfig()
     }
-  },
-  mounted () {
-    M.AutoInit()
-},
+  }
 }
 </script>
 
