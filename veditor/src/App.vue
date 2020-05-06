@@ -188,13 +188,55 @@ export default {
       fs.writeFile(this.configPath, configText, (err) => { if (err) { console.log(err); } })
     },
     addAnnotation(key) {
+
+    // A-frame text API
+    // Property       Description                                           Default Value
+    // align          Multi-line text alignment (left, center, right).	    left
+    // alphaTest	    Discard text pixels if alpha is less than this value.	0.5
+    // anchor	        Horizontal positioning (left, center, right, align).	center
+    // baseline	      Vertical positioning (top, center, bottom).	          center
+    // color	        Text color.	                                          white
+    // font	          Font to render text, either the name of one of 
+    //                A-Frame’s stock fonts or a URL to a font file	        default
+    // fontImage	    Font image texture path to render text. Defaults 
+    //                to the font‘s name with extension replaced to .png. 
+    //                Don’t need to specify if using a stock font.	        derived from font name
+    // height	        Height of text block.	                                derived from text size
+    // letterSpacing	Letter spacing in pixels.	                            0
+    // lineHeight	    Line height in pixels.	                              derived from font file
+    // opacity	      Opacity, on a scale from 0 to 1, where 0 means fully 
+    //                transparent and 1 means fully opaque.	                1.0
+    // shader	        Shader used to render text.	                          sdf
+    // side	          Side to render. (front, back, double)	                front
+    // tabSize	      Tab size in spaces.	                                  4
+    // transparent	  Whether text is transparent.	                        true
+    // value	        The actual content of the text. Line breaks and 
+    //                tabs are supported with \n and \t.	                  ‘’
+    // whiteSpace	    How whitespace should be handled (i.e., normal, 
+    //                pre, nowrap). Read more about whitespace.	            normal
+    // width	        Width in meters.	                                    derived from geometry if exists
+    // wrapCount	    Number of characters before wrapping text.	          40
+    // wrapPixels	    Number of pixels before wrapping text.	              derived from wrapCount
+    // xOffset	      X-offset to apply to add padding.                     0 
+    // zOffset	      Z-offset to apply to avoid Z-fighting if using 
+    //                with a geometry as a background.	                    0.001
+
       let newAnnotation = {
         "type": "text",
+        "position": "0 10 0",
+        "rotation": "0 0 0",
+        "align": "",
+        "color": "white",
+        "font":	"default",
+        "height":	10,
+        "letter-spacing": 0,
+        "opacity": 1.0,
+        "shader":	"sdf",
+        "side": "double",
+        "transparent":	true,
         "value": "",
         "width": 10,
-        "height": 10,
-        "color": "black",
-        "zoffset": -5
+        "wrap-count": 40,
       }
       let length = this.configData[key]['annotations'].push(newAnnotation)
       this.makeActive(key, 'annotations', length-1)
