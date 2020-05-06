@@ -144,7 +144,7 @@ func main() {
 		nodes = append(nodes, `"`+nodeIds[i]+`"`+`: {"annotations": [], "rotation": "0 0 0"}`)
 	}
 	config += strings.Join(nodes, ",")
-	config += "}; try { module.exports = config; } catch {};"
+	config += "};"
 	configErr := ioutil.WriteFile(path.Join(OUTPUT_STATIC, "config.js"), []byte(config), 0644)
 	if configErr != nil {
 		fmt.Println(configErr)
