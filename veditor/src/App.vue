@@ -91,8 +91,12 @@
                 </div>
               </form>
             </div>
-          <!-- <button id="saveBtn" class="waves-effect waves-light btn-small">Save</button> -->
-          <button id="deleteBtn" class="waves-effect waves-light btn-small red" onclick="deleteConfig()">Delete</button>
+            <div class="center-align">
+              <button v-if="activelyEditing.key2=='annotations'" 
+                id="deleteBtn" 
+                class="waves-effect waves-light btn-small red" 
+                @click="deleteAnnotation(activelyEditing.key, activelyEditing.index)">Delete</button>
+            </div>
           </div>
         </div>
 
@@ -154,19 +158,22 @@ export default {
       this.activelyEditing.key = key;
       this.activelyEditing.key2 = key2;
       this.activelyEditing.index = index;
-      if (index != null) {
-        this.activelyEditing.value = this.configData[key][key2][index]
-      } else {
-        this.activelyEditing.value = this.configData[key][key2]
+      if (key && key2) {
+        if (index != null) {
+          this.activelyEditing.value = this.configData[key][key2][index]
+        } else {
+          this.activelyEditing.value = this.configData[key][key2]
+        }
       }
     },
     saveConfig() {
-      if (this.activelyEditing.index != null) {
-        this.configData[this.activelyEditing.key][this.activelyEditing.key2][this.activelyEditing.index] = this.activelyEditing.value
-      } else {
-        this.configData[this.activelyEditing.key][this.activelyEditing.key2] = this.activelyEditing.value
+      if (this.activelyEditing.key && this.activelyEditing.key2) {
+        if (this.activelyEditing.index != null) {
+          this.configData[this.activelyEditing.key][this.activelyEditing.key2][this.activelyEditing.index] = this.activelyEditing.value
+        } else {
+          this.configData[this.activelyEditing.key][this.activelyEditing.key2] = this.activelyEditing.value
+        }
       }
-
       let configText = "var config = "
       configText += JSON.stringify(this.configData)
       configText += "; try { module.exports = config; } catch {};"
@@ -184,6 +191,11 @@ export default {
       }
       let length = this.configData[key]['annotations'].push(newAnnotation)
       this.makeActive(key, 'annotations', length-1)
+    },
+    deleteAnnotation(key, index) {
+      this.configData[key]['annotations'].splice(index, 1)
+      this.makeActive(null, null, null)
+      this.saveConfig()
     }
   },
   mounted () {
