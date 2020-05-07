@@ -223,20 +223,20 @@ export default {
 
       let newAnnotation = {
         "type": "text",
-        "position": "0 10 0",
+        "position": "0 0 -5",
         "rotation": "0 0 0",
         "align": "",
         "color": "white",
-        "font":	"default",
+        // "font":	"default",
         "height":	10,
         "letter-spacing": 0,
         "opacity": 1.0,
-        "shader":	"sdf",
+        // "shader":	"sdf",
         "side": "double",
-        "transparent":	true,
+        "transparent":	"false",
         "value": "",
-        "width": 10,
-        "wrap-count": 40,
+        "width": "10",
+        "wrap-count": "40",
       }
       let length = this.configData[key]['annotations'].push(newAnnotation)
       this.makeActive(key, 'annotations', length-1)

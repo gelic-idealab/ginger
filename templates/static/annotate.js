@@ -1,7 +1,6 @@
 
 var scene = document.getElementById("scene");
-// var annotations = config.annotations;
-// var orientations = config.orientations;
+
 function renderAnnontations(nodeId) {
     $(".annotation").remove();
     let node = config[nodeId];
@@ -9,29 +8,30 @@ function renderAnnontations(nodeId) {
         let local = config[nodeId].annotations;
         if (local) {
             for (var a = 0; a < local.length; a++) {
-                if (local[a].type == "text") {
+                if (local[a].type) {
+                    let annotation = 0;
+                    if (local[a].type == 'text') {
+                        annotation = document.createElement("a-text");
+                    }
+                    if (local[a].type == 'geometry') {
+                        annotation = document.createElement("a-plane");
 
-                    // TODO(rob): don't hardcode this, simply iterate over the object keys and apply the value
-                    let annotation = document.createElement("a-text");
-                    annotation.setAttribute("value", local[a].value);
-                    annotation.setAttribute("color", local[a].color);
-                    annotation.setAttribute("z-offset", local[a].zoffset)
-                    annotation.setAttribute("width", local[a].width);
-                    annotation.setAttribute("height", local[a].height)
-                    annotation.setAttribute("class", "annotation");
-                    scene.appendChild(annotation);
-                    annotation = undefined;
-                }
-                if (local[a].type == "geometry") {
-                    let annotation = document.createElement("a-plane");
-                    annotation.setAttribute("width", local[a].width);
-                    annotation.setAttribute("height", local[a].height);
-                    annotation.setAttribute("position", local[a].position);
-                    annotation.setAttribute("rotation", local[a].rotation);
-                    annotation.setAttribute("material", local[a].material);
-                    annotation.setAttribute("class", "annotation");
-                    scene.appendChild(annotation);
-                    annotation = undefined;
+                        // annotation.setAttribute("width", local[a].width);
+                        // annotation.setAttribute("height", local[a].height);
+                        // annotation.setAttribute("position", local[a].position);
+                        // annotation.setAttribute("rotation", local[a].rotation);
+                        // annotation.setAttribute("material", local[a].material);
+                    }
+                    for (att of Object.keys(local[a])) {
+                        console.log(att, local[a][att])
+                        annotation.setAttribute(att, local[a][att])
+                    }
+                    if (annotation) {
+                        annotation.setAttribute("class", "annotation");
+                        scene.appendChild(annotation);
+                        annotation = undefined;
+                    }
+
                 }
             }
         }
