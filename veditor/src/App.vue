@@ -10,7 +10,6 @@
                 <input type="file" id="packageLoader" name="packageDir" webkitdirectory="true" @change="loadTourPackage($event)">
             </a>
           </li>
-
           <li>
             <a class="waves-effect waves-light btn"><i class="material-icons">undo</i></a>
           </li>
@@ -46,11 +45,12 @@
                         :class="isActive(key, key2, index)" 
                         v-on:click="makeActive(key, key2, index)"
                         >
-                          {{ i.value || index }}
+                          {{ i.label || index }}
                         </a>
                       </div>
-                      <div class="center-align" v-if="key2=='annotations'">
-                        <a class="btn-floating waves-effect waves-light btn-small" @click="addAnnotation(key)"><i class="material-icons">add</i></a>
+                      <div style="margin:10px" class="center-align" v-if="key2=='annotations'">
+                        <a style="margin:3px" class="waves-effect waves-light btn-small" @click="addTextAnnotation(key)">Text<i class="material-icons right">text_format</i></a>
+                        <a style="margin:3px" class="waves-effect waves-light btn-small" @click="addAreaAnnotation(key)">Area<i class="material-icons right">crop_din</i></a>
                       </div>
                       <div class="collection" v-else-if="key2=='rotation' || key2=='cameraRotation' || key2=='node'">
                         <a href="#!" class="collection-item"
@@ -173,6 +173,8 @@ export default {
         } else {
           this.activelyEditing.value = this.configData[key][key2]
         }
+      } else {
+        this.activelyEditing.value = null
       }
     },
     saveConfig() {
@@ -187,7 +189,7 @@ export default {
       configText += JSON.stringify(this.configData)
       fs.writeFile(this.configPath, configText, (err) => { if (err) { console.log(err); } })
     },
-    addAnnotation(key) {
+    addTextAnnotation(key) {
 
     // A-frame text API
     // Property       Description                                           Default Value
@@ -221,7 +223,8 @@ export default {
     // zOffset	      Z-offset to apply to avoid Z-fighting if using 
     //                with a geometry as a background.	                    0.001
 
-      let newAnnotation = {
+      let newTextAnnotation = {
+        "label": "",
         "type": "text",
         "position": "0 0 -5",
         "rotation": "0 0 0",
@@ -238,7 +241,20 @@ export default {
         "width": "10",
         "wrap-count": "40",
       }
-      let length = this.configData[key]['annotations'].push(newAnnotation)
+      let length = this.configData[key]['annotations'].push(newTextAnnotation)
+      this.makeActive(key, 'annotations', length-1)
+    },
+    addAreaAnnotation(key) {
+      let newAreaAnnotation = {
+        "label": "",
+        "type": "area",
+        "position": "0 0 -5",
+        "rotation": "-90 0 0",
+        "color": "#FFF",
+        "height": "1",
+        "width": "1"
+      }
+      let length = this.configData[key]['annotations'].push(newAreaAnnotation)
       this.makeActive(key, 'annotations', length-1)
     },
     deleteAnnotation(key, index) {

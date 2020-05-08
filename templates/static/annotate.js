@@ -13,14 +13,8 @@ function renderAnnontations(nodeId) {
                     if (local[a].type == 'text') {
                         annotation = document.createElement("a-text");
                     }
-                    if (local[a].type == 'geometry') {
+                    if (local[a].type == 'area') {
                         annotation = document.createElement("a-plane");
-
-                        // annotation.setAttribute("width", local[a].width);
-                        // annotation.setAttribute("height", local[a].height);
-                        // annotation.setAttribute("position", local[a].position);
-                        // annotation.setAttribute("rotation", local[a].rotation);
-                        // annotation.setAttribute("material", local[a].material);
                     }
                     for (att of Object.keys(local[a])) {
                         console.log(att, local[a][att])
