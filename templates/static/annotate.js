@@ -9,12 +9,12 @@ function renderAnnontations(nodeId) {
         if (local) {
             for (var a = 0; a < local.length; a++) {
                 if (local[a].type) {
-                    let annotation = 0;
+                    let annotation = null;
                     if (local[a].type == 'text') {
                         annotation = document.createElement("a-text");
                     }
                     if (local[a].type == 'area') {
-                        annotation = document.createElement("a-plane");
+                        annotation = document.createElement("a-"+local[a].primitive);
                     }
                     for (att of Object.keys(local[a])) {
                         console.log(att, local[a][att])
@@ -47,5 +47,3 @@ function applyOrientation(nodeId) {
         current.setAttribute("rotation", "0 0 0")
     }
 }
-
-

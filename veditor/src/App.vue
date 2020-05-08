@@ -248,6 +248,7 @@ export default {
       let newAreaAnnotation = {
         "label": "",
         "type": "area",
+        "primitive": "plane",
         "position": "0 0 -5",
         "rotation": "-90 0 0",
         "color": "#FFF",
