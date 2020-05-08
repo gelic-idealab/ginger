@@ -1,5 +1,27 @@
-
 var scene = document.getElementById("scene");
+
+function loadConfig() {
+    let oldConfig = document.getElementById('config')
+    if (oldConfig != null) {
+        oldConfig.parentNode.removeChild(oldConfig)
+    }
+    let newConfig = document.createElement("script")
+    newConfig.setAttribute("src", "static/config.js")
+    newConfig.setAttribute("type", "text/javascript")
+    newConfig.setAttribute("id", "config")
+    document.body.appendChild(newConfig)
+}
+
+loadConfig()
+
+window.addEventListener('message', function (msg) {
+    console.log('tour received message:', msg.data)
+    if (msg.data == 'reloadConfig') {
+        console.log('config reload requested')
+        loadConfig()
+        renderAnnontations(current.here)
+    }
+  })
 
 function renderAnnontations(nodeId) {
     $(".annotation").remove();
@@ -17,7 +39,7 @@ function renderAnnontations(nodeId) {
                         annotation = document.createElement("a-"+local[a].primitive);
                     }
                     for (att of Object.keys(local[a])) {
-                        console.log(att, local[a][att])
+                        // console.log(att, local[a][att])
                         annotation.setAttribute(att, local[a][att])
                     }
                     if (annotation) {

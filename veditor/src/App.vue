@@ -68,14 +68,14 @@
         </div>
 
         <div class="col s8" style="height: 100%;">
-          <div id="frame" style="height: 100%;">
-            <iframe allow="fullscreen" :src="indexPath" style="position: relative; height: 100%; width: 100%;" frameborder="0" scrolling="no"></iframe>
+          <div style="height: 100%;">
+            <iframe id="iframe" allow="fullscreen" :src="indexPath" style="position: relative; height: 100%; width: 100%;" frameborder="0" scrolling="no"></iframe>
           </div>
         </div>
 
         <div class="col s2" style="height: 100%;">
           <h5 style="text-align: center;">Properties</h5>
-          <div id="config" class="card-panel grey lighten-3">
+          <div id="properties" class="card-panel grey lighten-3">
             <div id="keys">
               <form v-if="activelyEditing.index != null">
                 <div class="row" v-for="(val, key) in activelyEditing.value" :key="key">
@@ -156,6 +156,7 @@ export default {
         }
       });
     },
+
     isActive(key, key2, index=null) {
       if (this.activelyEditing.key == key && this.activelyEditing.key2 == key2 && this.activelyEditing.index == index) {
         return "active"
@@ -163,6 +164,7 @@ export default {
         return ""
       }
     },
+
     makeActive(key, key2, index=null) {
       this.activelyEditing.key = key;
       this.activelyEditing.key2 = key2;
@@ -177,6 +179,7 @@ export default {
         this.activelyEditing.value = null
       }
     },
+
     saveConfig() {
       if (this.activelyEditing.key && this.activelyEditing.key2) {
         if (this.activelyEditing.index != null) {
@@ -187,8 +190,16 @@ export default {
       }
       let configText = "var config = "
       configText += JSON.stringify(this.configData)
-      fs.writeFile(this.configPath, configText, (err) => { if (err) { console.log(err); } })
+      fs.writeFile(this.configPath, configText, (err) => {
+        if(err) {
+          console.log(err)
+        } else {
+          let iframe = document.getElementById('iframe')
+          iframe.contentWindow.postMessage('reloadConfig', '*')
+        }
+      })
     },
+
     addTextAnnotation(key) {
 
     // A-frame text API
@@ -244,6 +255,7 @@ export default {
       let length = this.configData[key]['annotations'].push(newTextAnnotation)
       this.makeActive(key, 'annotations', length-1)
     },
+
     addAreaAnnotation(key) {
       let newAreaAnnotation = {
         "label": "",
@@ -258,6 +270,7 @@ export default {
       let length = this.configData[key]['annotations'].push(newAreaAnnotation)
       this.makeActive(key, 'annotations', length-1)
     },
+
     deleteAnnotation(key, index) {
       this.configData[key]['annotations'].splice(index, 1)
       this.makeActive(null, null, null)
