@@ -26,7 +26,7 @@
     <div style="height: 90vh;">
       <div class="row" style="height: 100%;">
 
-        <div class="col s2" style="height: 100%;">
+        <div class="col s2" style="height: 100%; overflow-y:auto;">
           <h5 style="text-align: center;">Scene</h5>
           <div class="" id="sceneGraph">
             <ul class="collapsible" data-collapsible="accordion">
@@ -181,6 +181,7 @@ export default {
     },
 
     saveConfig() {
+      console.log('saving...')
       if (this.activelyEditing.key && this.activelyEditing.key2) {
         if (this.activelyEditing.index != null) {
           this.configData[this.activelyEditing.key][this.activelyEditing.key2][this.activelyEditing.index] = this.activelyEditing.value
