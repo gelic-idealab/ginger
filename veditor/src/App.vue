@@ -73,7 +73,7 @@
           </div>
         </div>
 
-        <div class="col s2" style="height: 100%;">
+        <div class="col s2" style="height: 100%; overflow-y:auto;">
           <h5 style="text-align: center;">Properties</h5>
           <div id="properties" class="card-panel grey lighten-3">
             <div id="keys">
@@ -191,7 +191,7 @@ export default {
       let configText = "var config = "
       configText += JSON.stringify(this.configData)
       fs.writeFile(this.configPath, configText, (err) => {
-        if(err) {
+        if (err) {
           console.log(err)
         } else {
           let iframe = document.getElementById('iframe')
