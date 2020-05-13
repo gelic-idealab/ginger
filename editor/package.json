@@ -1,24 +1,52 @@
 {
-  "name": "ginger-editor",
-  "version": "1.0.0",
-  "description": "A desktop application for editing ginger 360 tours.",
-  "main": "main.js",
+  "name": "Ginger Editor",
+  "version": "0.1.4",
+  "private": true,
   "scripts": {
-    "start": "electron ."
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:serve": "vue-cli-service electron:serve",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps"
   },
-  "repository": "https://github.com/Grainger-Engineering-Library/ginger",
-  "keywords": [
-    "360",
-    "a-frame",
-    "VR"
-  ],
-  "author": "Grainger Engineering Library IDEA Lab",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "electron": "^8.1.1"
-  },
+  "main": "background.js",
   "dependencies": {
-    "material-icons": "^0.3.1",
-    "materialize-css": "^1.0.0"
-  }
+    "core-js": "^3.6.4",
+    "material-design-icons": "^3.0.1",
+    "materialize-css": "^1.0.0",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.3.0",
+    "@vue/cli-plugin-eslint": "~4.3.0",
+    "@vue/cli-service": "~4.3.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "electron": "^6.1.11",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-cli-plugin-electron-builder": "~1.4.6",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
