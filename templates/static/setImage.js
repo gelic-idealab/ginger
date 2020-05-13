@@ -44,8 +44,7 @@ AFRAME.registerComponent('set-image', {
 
                     renderAnnontations(current.here);
                     applyOrientation(current.here);
-                    let event = new CustomEvent('nodeChange', {detail: current})
-                    window.parent.document.dispatchEvent(event);
+                    window.top.postMessage(current, '*')
 
                 }, data.dur);
             }

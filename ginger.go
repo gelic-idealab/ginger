@@ -41,7 +41,7 @@ func main() {
 	TEMPLATES := "templates"
 	TEMPLATES_STATIC := path.Join(TEMPLATES, "static")
 
-	_ = os.MkdirAll(OUTPUT_IMG_DIR, 0666)
+	_ = os.MkdirAll(OUTPUT_IMG_DIR, 0755)
 
 	var files []string
 	var fileCounter = -1
@@ -125,7 +125,7 @@ func main() {
 	fmt.Println("Format and generate index.html...")
 	htmlTemplatePath := path.Join(TEMPLATES, "template.html")
 	htmlTemplateText := readHtmlTemplate(htmlTemplatePath)
-
+	// TODO(rob): use http/template to format and execute template.html
 	html := strings.Replace(htmlTemplateText, "{{num_rows}}", strconv.Itoa(matrixRows), 1)
 	html = strings.Replace(html, "{{num_cols}}", strconv.Itoa(*columns), 1)
 	html = strings.Replace(html, "{{img_dir}}", "'"+IMG_STATIC_REL_PATH+"'", 1)
@@ -139,11 +139,12 @@ func main() {
 
 	fmt.Println("Generate config.js...")
 	config := "var config = {"
-	config += `"start": {"node": "1_1", "cameraRotation": "0 0 0"},`
+	nodes := []string{`"start": {"node": "1_1", "cameraRotation": "0 0 0"}`}
 	for i := 0; i < len(nodeIds); i++ {
-		config += `"` + nodeIds[i] + `"` + `: {"annotations": [], "rotation": "0 0 0"},`
+		nodes = append(nodes, `"`+nodeIds[i]+`"`+`: {"annotations": [], "rotation": "0 0 0"}`)
 	}
-	config += "}; try { module.exports = config; } catch {};"
+	config += strings.Join(nodes, ",")
+	config += "}"
 	configErr := ioutil.WriteFile(path.Join(OUTPUT_STATIC, "config.js"), []byte(config), 0644)
 	if configErr != nil {
 		fmt.Println(configErr)

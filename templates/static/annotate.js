@@ -1,7 +1,30 @@
-
 var scene = document.getElementById("scene");
-// var annotations = config.annotations;
-// var orientations = config.orientations;
+
+function loadConfig() {
+    let oldConfig = document.getElementById('config')
+    if (oldConfig != null) {
+        oldConfig.parentNode.removeChild(oldConfig)
+    }
+    let newConfig = document.createElement("script")
+    newConfig.setAttribute("src", "static/config.js?v="+Date.now())
+    newConfig.setAttribute("type", "text/javascript")
+    newConfig.setAttribute("id", "config")
+    document.body.appendChild(newConfig)
+}
+
+loadConfig()
+
+window.addEventListener('message', function (msg) {
+    if (msg.data == 'reloadConfig') {
+        console.log('config reload requested')
+        loadConfig()
+        console.log('re-rendering:', current.here)
+        this.setTimeout(function () {
+            renderAnnontations(current.here)
+        }, 500)
+    }
+  })
+
 function renderAnnontations(nodeId) {
     $(".annotation").remove();
     let node = config[nodeId];
@@ -9,27 +32,24 @@ function renderAnnontations(nodeId) {
         let local = config[nodeId].annotations;
         if (local) {
             for (var a = 0; a < local.length; a++) {
-                if (local[a].type == "text") {
-                    let annotation = document.createElement("a-text");
-                    annotation.setAttribute("value", local[a].value);
-                    annotation.setAttribute("color", local[a].color);
-                    annotation.setAttribute("z-offset", local[a].zoffset)
-                    annotation.setAttribute("width", local[a].width);
-                    annotation.setAttribute("height", local[a].height)
-                    annotation.setAttribute("class", "annotation");
-                    scene.appendChild(annotation);
-                    annotation = undefined;
-                }
-                if (local[a].type == "geometry") {
-                    let annotation = document.createElement("a-plane");
-                    annotation.setAttribute("width", local[a].width);
-                    annotation.setAttribute("height", local[a].height);
-                    annotation.setAttribute("position", local[a].position);
-                    annotation.setAttribute("rotation", local[a].rotation);
-                    annotation.setAttribute("material", local[a].material);
-                    annotation.setAttribute("class", "annotation");
-                    scene.appendChild(annotation);
-                    annotation = undefined;
+                if (local[a].type) {
+                    let annotation = null;
+                    if (local[a].type == 'text') {
+                        annotation = document.createElement("a-text");
+                    }
+                    if (local[a].type == 'area') {
+                        annotation = document.createElement("a-"+local[a].primitive);
+                    }
+                    for (att of Object.keys(local[a])) {
+                        // console.log(att, local[a][att])
+                        annotation.setAttribute(att, local[a][att])
+                    }
+                    if (annotation) {
+                        annotation.setAttribute("class", "annotation");
+                        scene.appendChild(annotation);
+                        annotation = undefined;
+                    }
+
                 }
             }
         }
@@ -51,5 +71,3 @@ function applyOrientation(nodeId) {
         current.setAttribute("rotation", "0 0 0")
     }
 }
-
-
