@@ -18,7 +18,7 @@
           </li>
 
         </ul>
-        <a href="#" class="brand-logo center">{{ currentTourTitle }}</a>
+        <div class="brand-logo center">{{ currentTourPath }}</div>
       </div>
     </nav>
 
@@ -126,7 +126,7 @@ export default {
       indexPath: '',
       configPath: '',
       configData: {},
-      currentTourTitle: 'Load a tour package...',
+      currentTourPath: 'Load a tour package...',
       activelyEditing: {
         key: '',
         key2: '',
@@ -146,7 +146,7 @@ export default {
     loadTourPackage(e) {
       let files = e.target.files;
       console.log(files)
-      this.currentTourTitle = files[0].path;
+      this.currentTourPath = files[0].path;
       this.indexPath = path.join(files[0].path, 'index.html');
       this.configPath = path.join(files[0].path, 'static', 'config.js');
       console.log('loading tour:', this.indexPath, this.configPath);
