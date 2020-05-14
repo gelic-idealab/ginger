@@ -21,7 +21,7 @@ window.addEventListener('message', function (msg) {
         console.log('re-rendering:', current.here)
         this.setTimeout(function () {
             renderAnnontations(current.here)
-        }, 500)
+        }, 100)
     }
   })
 
