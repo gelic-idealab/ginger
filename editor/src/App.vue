@@ -88,6 +88,12 @@
                       <option value="center">center</option>
                       <option value="right">right</option>
                     </select>
+
+                    <select class="browser-default" v-else-if="key=='font'" :id="key" v-model="activelyEditing.value[key]" @change="saveConfig">
+                      <option value="" disabled selected>Choose font</option>
+                      <option v-for="font in supportedFonts" :value="font" :key="font">{{ font }}</option>
+                    </select>
+
                     <input v-else v-model="activelyEditing.value[key]" :id="key" type="text" @change="saveConfig">
 
 
@@ -141,7 +147,9 @@ export default {
         key2: '',
         index: null,
         value: null
-      }
+      },
+      supportedFonts: ['roboto', 'aileronsemibold', 'dejavu', 'exo2bold', 'exo2semibold', 'kelsonsans', 'monoid', 'mozillavr', 'sourcecodepro']
+      // see https://aframe.io/docs/1.0.0/components/text.html#stock-fonts
     }
   },
   mounted: function() {
@@ -254,7 +262,7 @@ export default {
         "rotation": "0 0 0",
         "align": "left",
         "color": "white",
-        // "font":	"default",
+        "font":	"roboto",
         "height":	10,
         "letter-spacing": 0,
         "opacity": 1.0,
