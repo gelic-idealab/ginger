@@ -99,6 +99,12 @@
                       <option v-for="font in supportedFonts" :value="font" :key="font">{{ font }}</option>
                     </select>
 
+                    <!-- render select field for geometric primitives -->
+                    <select class="browser-default" v-else-if="key=='primitive'" :id="key" v-model="activelyEditing.value[key]" @change="saveConfig">
+                      <option value="" disabled selected>Choose geometric primitive</option>
+                      <option v-for="primitive in supportedPrimitives" :value="primitive" :key="primitive">{{ primitive }}</option>
+                    </select>
+
                     <!-- render text fields for everything else -->
                     <input v-else v-model="activelyEditing.value[key]" :id="key" type="text" @change="saveConfig">
 
@@ -157,8 +163,9 @@ export default {
         index: null,
         value: null
       },
-      supportedFonts: ['roboto', 'aileronsemibold', 'dejavu', 'exo2bold', 'exo2semibold', 'kelsonsans', 'monoid', 'mozillavr', 'sourcecodepro']
+      supportedFonts: ['roboto', 'aileronsemibold', 'dejavu', 'exo2bold', 'exo2semibold', 'kelsonsans', 'monoid', 'mozillavr', 'sourcecodepro'],
       // see https://aframe.io/docs/1.0.0/components/text.html#stock-fonts
+      supportedPrimitives: ['box', 'circle', 'cone', 'cylinder', 'dodecahedron', 'octahedron', 'plane', 'ring', 'sphere', 'tetrahedron', 'torus', 'triangle']
     }
   },
   mounted: function() {
