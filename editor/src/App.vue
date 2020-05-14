@@ -81,7 +81,16 @@
               <form v-if="activelyEditing.index != null">
                 <div class="row" v-for="(val, key) in activelyEditing.value" :key="key">
                   <div class="input-field">
-                    <input v-model="activelyEditing.value[key]" :id="key" type="text" @change="saveConfig">
+                    <input v-if="key=='type'" v-model="activelyEditing.value[key]" :id="key" type="text" @change="saveConfig" disabled>
+                    <select class="browser-default" v-else-if="key=='align'" :id="key" v-model="activelyEditing.value[key]" @change="saveConfig">
+                      <option value="" disabled selected>Choose alignment</option>
+                      <option value="left">left</option>
+                      <option value="center">center</option>
+                      <option value="right">right</option>
+                    </select>
+                    <input v-else v-model="activelyEditing.value[key]" :id="key" type="text" @change="saveConfig">
+
+
                     <label class="active" :for="key">{{ key }}</label>
                   </div>
                 </div>
@@ -243,7 +252,7 @@ export default {
         "type": "text",
         "position": "0 0 -5",
         "rotation": "0 0 0",
-        "align": "",
+        "align": "left",
         "color": "white",
         // "font":	"default",
         "height":	10,
