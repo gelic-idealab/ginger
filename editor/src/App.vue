@@ -81,7 +81,11 @@
               <form v-if="activelyEditing.index != null">
                 <div class="row" v-for="(val, key) in activelyEditing.value" :key="key">
                   <div class="input-field">
+
+                    <!-- disable changing annotation type -->
                     <input v-if="key=='type'" v-model="activelyEditing.value[key]" :id="key" type="text" @change="saveConfig" disabled>
+
+                    <!-- render select field for text alignment -->
                     <select class="browser-default" v-else-if="key=='align'" :id="key" v-model="activelyEditing.value[key]" @change="saveConfig">
                       <option value="" disabled selected>Choose alignment</option>
                       <option value="left">left</option>
@@ -89,11 +93,13 @@
                       <option value="right">right</option>
                     </select>
 
+                    <!-- render select field for stock font types -->
                     <select class="browser-default" v-else-if="key=='font'" :id="key" v-model="activelyEditing.value[key]" @change="saveConfig">
                       <option value="" disabled selected>Choose font</option>
                       <option v-for="font in supportedFonts" :value="font" :key="font">{{ font }}</option>
                     </select>
 
+                    <!-- render text fields for everything else -->
                     <input v-else v-model="activelyEditing.value[key]" :id="key" type="text" @change="saveConfig">
 
 
@@ -101,6 +107,8 @@
                   </div>
                 </div>
               </form>
+
+              <!-- render form differently if editing start or orientation objects -->
               <form v-if="activelyEditing.index == null">
                 <div class="row">
                   <div class="input-field">
@@ -109,6 +117,7 @@
                   </div>
                 </div>
               </form>
+
             </div>
             <div class="center-align">
               <button v-if="activelyEditing.key2=='annotations'" 
