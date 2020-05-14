@@ -266,7 +266,8 @@ export default {
         "rotation": "-90 0 0",
         "color": "#FFF",
         "height": "1",
-        "width": "1"
+        "width": "1",
+        "material": "opacity: 1"
       }
       let length = this.configData[key]['annotations'].push(newAreaAnnotation)
       this.makeActive(key, 'annotations', length-1)
