@@ -1,9 +1,18 @@
 import sys
 import os
 import subprocess
+import shutil
 
 imgDir = '../ISAC/imgs/'
 outDir = '../ISAC/tours/'
+
+if not os.path.exists(outDir):
+    print('Output directory does not exist, making: ' + outDir + '\n')
+    os.mkdir(outDir)
+
+if len(os.listdir(outDir)):
+    print('Output directory is not empty, cleaning: ' + outDir + '\n')
+    shutil.rmtree(outDir)    
 
 if sys.platform == 'win32':
     exe_path = './builds/cli/ginger.exe'
@@ -32,6 +41,5 @@ for dirName, _, _ in os.walk(imgDir):
             'Noyes Laboratory 100'
             ]:
             args.append('-r')
-            subprocess.run(args)
-        else: 
-            subprocess.run(args)
+            
+        subprocess.run(args)
