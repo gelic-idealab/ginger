@@ -16,9 +16,11 @@
           <li>
             <a class="waves-effect waves-light btn"><i class="material-icons">redo</i></a>
           </li> -->
-
         </ul>
         <div class="brand-logo center">{{ currentTourPath }}</div>
+        <div class="right" style="margin-right:15px">
+          <code>v0.1.5</code>
+        </div>
       </div>
     </nav>
 
