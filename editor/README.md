@@ -1,24 +1,18 @@
-# veditor
+# Ginger Editor
+A desktop application built with Vue.js and Electron
 
-## Project setup
+### Project setup
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run electron:serve
 ```
 
-### Compiles and minifies for production
+### Compiles and builds for distribution
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+npm run electron:build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

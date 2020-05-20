@@ -6,7 +6,7 @@ function loadConfig() {
         oldConfig.parentNode.removeChild(oldConfig)
     }
     let newConfig = document.createElement("script")
-    newConfig.setAttribute("src", "static/config.js?v="+Date.now())
+    newConfig.setAttribute("src", "static/config.js")
     newConfig.setAttribute("type", "text/javascript")
     newConfig.setAttribute("id", "config")
     document.body.appendChild(newConfig)
@@ -21,7 +21,7 @@ window.addEventListener('message', function (msg) {
         console.log('re-rendering:', current.here)
         this.setTimeout(function () {
             renderAnnontations(current.here)
-        }, 500)
+        }, 100)
     }
   })
 

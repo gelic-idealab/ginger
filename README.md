@@ -38,8 +38,8 @@ You would then indicate that your layout matrix has 3 columns:
 To preview generated tour packages in a web browser, provide the ```-s``` (serve) flag. The generated tour will be available at localhost, port 5000. 
 
 
-## A-frame
-We use the [A-frame](https://github.com/aframevr/aframe) WebXR library to create web-embeddable VR tours.
+## A-Frame
+We use the [A-Frame](https://github.com/aframevr/aframe) WebXR library to create web-embeddable VR tours.
 
 ## Ginger Editor
 A desktop application that allows you to add text and geometric annotations to ```ginger``` tour packages, as well as tweak image orientations and tour starting place. Pre-built binaries for Windows, Mac OSX, and Linux will be available.
