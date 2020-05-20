@@ -10,12 +10,12 @@
                 <input type="file" id="packageLoader" name="packageDir" webkitdirectory="true" @change="loadTourPackage($event)">
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a class="waves-effect waves-light btn"><i class="material-icons">undo</i></a>
           </li>
           <li>
             <a class="waves-effect waves-light btn"><i class="material-icons">redo</i></a>
-          </li>
+          </li> -->
 
         </ul>
         <div class="brand-logo center">{{ currentTourPath }}</div>
@@ -31,10 +31,10 @@
           <h5 style="text-align: center;">Scene</h5>
           <div class="" id="sceneGraph">
             <ul class="collapsible" data-collapsible="accordion">
-              <li v-for="key in Object.keys(configData)" :key="key">
-                <div class="collapsible-header grey lighten-3">
+              <li v-for="key in Object.keys(configData)" :key="key" >
+                <div class="collapsible-header lighten-3" :class="isActiveNode(key)">
                   <span>{{ key }}</span>
-                  <span v-if="configData[key]['annotations']" class="new badge" data-badge-caption="annotations">{{ configData[key]['annotations'].length }}</span>
+                  <span v-if="configData[key]['annotations'] && configData[key]['annotations'].length" class="new badge" data-badge-caption="annotations">{{ configData[key]['annotations'].length }}</span>
                 </div>
                   <div class="collapsible-body">
                     <div v-for="key2 in Object.keys(configData[key])" :key="key2">
@@ -51,7 +51,9 @@
                       </div>
                       <div style="margin:10px" class="center-align" v-if="key2=='annotations'">
                         <a style="margin:3px" class="waves-effect waves-light btn-small" @click="addTextAnnotation(key)">Text<i class="material-icons right">text_format</i></a>
-                        <a style="margin:3px" class="waves-effect waves-light btn-small" @click="addAreaAnnotation(key)">Area<i class="material-icons right">crop_din</i></a>
+                        <a style="margin:3px" class="waves-effect waves-light btn-small" @click="addPlaneAnnotation(key)">Plane<i class="material-icons right">crop_square</i></a>
+                        <a style="margin:3px" class="waves-effect waves-light btn-small" @click="addBoxAnnotation(key)">Box<i class="material-icons right">gradient</i></a>
+                        <a style="margin:3px" class="waves-effect waves-light btn-small" @click="addCircleAnnotation(key)">Circle<i class="material-icons right">fiber_manual_record</i></a>
                       </div>
                       <div class="collection" v-else-if="key2=='rotation' || key2=='cameraRotation' || key2=='node'">
                         <a href="#!" class="collection-item"
@@ -100,7 +102,7 @@
                     </select>
 
                     <!-- render select field for geometric primitives -->
-                    <select class="browser-default" v-else-if="key=='primitive'" :id="key" v-model="activelyEditing.value[key]" @change="saveConfig">
+                    <select class="browser-default" v-else-if="key=='primitive'" :id="key" v-model="activelyEditing.value[key]" @change="saveConfig" disabled>
                       <option value="" disabled selected>Choose geometric primitive</option>
                       <option v-for="primitive in supportedPrimitives" :value="primitive" :key="primitive">{{ primitive }}</option>
                     </select>
@@ -165,15 +167,14 @@ export default {
       },
       supportedFonts: ['roboto', 'aileronsemibold', 'dejavu', 'exo2bold', 'exo2semibold', 'kelsonsans', 'monoid', 'mozillavr', 'sourcecodepro'],
       // see https://aframe.io/docs/1.0.0/components/text.html#stock-fonts
-      supportedPrimitives: ['box', 'circle', 'cone', 'cylinder', 'dodecahedron', 'octahedron', 'plane', 'ring', 'sphere', 'tetrahedron', 'torus', 'triangle']
+      supportedPrimitives: ['box', 'circle', 'cone', 'cylinder', 'dodecahedron', 'octahedron', 'plane', 'ring', 'sphere', 'tetrahedron', 'torus', 'triangle'],
+      activeNode: "1_1"
     }
   },
   mounted: function() {
     M.AutoInit()
 
-    window.addEventListener('message', function (msg) {
-      console.log('received message from iframe:', msg.data)
-    })
+    window.addEventListener('message', this.makeActiveNode);
   },
   methods: {
     loadTourPackage(e) {
@@ -213,6 +214,21 @@ export default {
         }
       } else {
         this.activelyEditing.value = null
+      }
+    },
+
+    isActiveNode(key) {
+      if (key == this.activeNode) {
+        return "teal"
+      } else {
+        return "grey"
+      }
+    },
+
+    makeActiveNode(msg) {
+      if (msg.data.here) {
+        console.log('makeActiveNode called:', msg.data)
+        this.activeNode = msg.data.here
       }
     },
 
@@ -282,9 +298,8 @@ export default {
         "height":	10,
         "letter-spacing": 0,
         "opacity": 1.0,
-        // "shader":	"sdf",
         "side": "double",
-        "transparent":	"false",
+        "transparent":	"true",
         "value": "",
         "width": "10",
         "wrap-count": "40",
@@ -293,8 +308,8 @@ export default {
       this.makeActive(key, 'annotations', length-1)
     },
 
-    addAreaAnnotation(key) {
-      let newAreaAnnotation = {
+    addPlaneAnnotation(key) {
+      let newPlaneAnnotation = {
         "label": "",
         "type": "area",
         "primitive": "plane",
@@ -305,7 +320,37 @@ export default {
         "width": "1",
         "material": "opacity: 1"
       }
-      let length = this.configData[key]['annotations'].push(newAreaAnnotation)
+      let length = this.configData[key]['annotations'].push(newPlaneAnnotation)
+      this.makeActive(key, 'annotations', length-1)
+    },
+    addBoxAnnotation(key) {
+      let newPlaneAnnotation = {
+        "label": "",
+        "type": "area",
+        "primitive": "box",
+        "position": "0 0 -5",
+        "rotation": "0 0 0",
+        "color": "tomato",
+        "height": "1",
+        "width": "1",
+        "depth": "1",
+        "material": "opacity: 0.25"
+      }
+      let length = this.configData[key]['annotations'].push(newPlaneAnnotation)
+      this.makeActive(key, 'annotations', length-1)
+    },
+    addCircleAnnotation(key) {
+      let newPlaneAnnotation = {
+        "label": "",
+        "type": "area",
+        "primitive": "circle",
+        "position": "0 0 -5",
+        "rotation": "-90 0 0",
+        "color": "#FFF",
+        "radius": "1",
+        "material": "opacity: 1"
+      }
+      let length = this.configData[key]['annotations'].push(newPlaneAnnotation)
       this.makeActive(key, 'annotations', length-1)
     },
 
