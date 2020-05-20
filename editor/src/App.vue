@@ -19,7 +19,7 @@
         </ul>
         <div class="brand-logo center">{{ currentTourPath }}</div>
         <div class="right" style="margin-right:15px">
-          <code>v0.1.5</code>
+          <code>v1.0.0</code>
         </div>
       </div>
     </nav>
