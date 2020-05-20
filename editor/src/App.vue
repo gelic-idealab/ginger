@@ -29,7 +29,10 @@
 
         <div class="col s2" style="height: 100%; overflow-y:auto;">
           <h5 style="text-align: center;">Scene</h5>
-          <div class="" id="sceneGraph">
+          <div class="card-panel grey lighten-3" v-if="Object.keys(configData).length == 0">
+            <span style="align:center">No scene loaded</span>
+          </div>
+          <div class="" id="sceneGraph" v-show="Object.keys(configData).length">
             <ul class="collapsible" data-collapsible="accordion">
               <li v-for="key in Object.keys(configData)" :key="key" >
                 <div class="collapsible-header lighten-3" :class="isActiveNode(key)">
@@ -79,7 +82,8 @@
         <div class="col s2" style="height: 100%; overflow-y:auto;">
           <h5 style="text-align: center;">Properties</h5>
           <div id="properties" class="card-panel grey lighten-3">
-            <div id="keys">
+            <span style="align:center" v-if="activelyEditing.value == null">Select annotation to edit</span>
+            <div id="keys" v-if="activelyEditing.value">
               <form v-if="activelyEditing.index != null">
                 <div class="row" v-for="(val, key) in activelyEditing.value" :key="key">
                   <div class="input-field">
@@ -168,7 +172,7 @@ export default {
       supportedFonts: ['roboto', 'aileronsemibold', 'dejavu', 'exo2bold', 'exo2semibold', 'kelsonsans', 'monoid', 'mozillavr', 'sourcecodepro'],
       // see https://aframe.io/docs/1.0.0/components/text.html#stock-fonts
       supportedPrimitives: ['box', 'circle', 'cone', 'cylinder', 'dodecahedron', 'octahedron', 'plane', 'ring', 'sphere', 'tetrahedron', 'torus', 'triangle'],
-      activeNode: "1_1"
+      activeNode: ""
     }
   },
   mounted: function() {
@@ -189,7 +193,9 @@ export default {
           console.log(err)
         } else {
           data = data.split('=')[1]
-          this.configData = JSON.parse(data)
+          let parsed = JSON.parse(data)
+          this.configData = parsed
+          this.activeNode = parsed.start.node
         }
       });
     },
