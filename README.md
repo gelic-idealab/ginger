@@ -53,6 +53,7 @@ The developers wish to thank the following units and people at the University of
 * Grainger Engineering Library, for ongoing support of this project in its varying forms
 * Undergraduate Library, including Jim Hahn and his work with a CS498VR student developer group who provided the inspiration for the project
 * Gaurav Dharra, for his work on early versions
+* Welisa Lewis, for her work on an early version of the editor
 * Immersive Scholars Mellon Foundation Grant, for funding early work on this project
 
 Special thanks to:
