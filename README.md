@@ -45,3 +45,14 @@ We use the [A-Frame](https://github.com/aframevr/aframe) WebXR library to create
 A desktop application that allows you to add text and geometric annotations to ```ginger``` tour packages, as well as tweak image orientations and tour starting place. Pre-built binaries for Windows, Mac OSX, and Linux will be available.
 
 ![editor_window](./editor_window.png)
+
+
+## Acknowledgements
+The developers wish to thank the following units and people at the University of Illinois Urbana-Champaign for their support of this project:
+
+* Grainger Engineering Library
+* Undergraduate Library
+* Gaurav Dharra, for his work on early versions
+* Immersive Scholars Mellon Foundation Grant
+* Disability Resources & Educational Services (DRES)
+* College of Engineering Facilities
