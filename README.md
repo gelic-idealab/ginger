@@ -50,9 +50,15 @@ A desktop application that allows you to add text and geometric annotations to `
 ## Acknowledgements
 The developers wish to thank the following units and people at the University of Illinois Urbana-Champaign for their support of this project:
 
-* Grainger Engineering Library
-* Undergraduate Library
+* Grainger Engineering Library, for ongoing support of this project in its varying forms
+* Undergraduate Library, including Jim Hahn and his work with a CS498VR student developer group
 * Gaurav Dharra, for his work on early versions
-* Immersive Scholars Mellon Foundation Grant
+* Immersive Scholars Mellon Foundation Grant, for funding early work on this project
+
+Special thanks to:
 * Disability Resources & Educational Services (DRES)
 * College of Engineering Facilities
+
+for their input and guidance on core features, as well as their willingness to test and deploy beta versions of the final tours. 
+
+Thank you! 
