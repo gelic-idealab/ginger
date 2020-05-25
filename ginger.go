@@ -1,5 +1,4 @@
 // Ginger - a command line tool to generate web-embeddable 360/VR building tours
-
 package main
 
 import (
