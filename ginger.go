@@ -137,13 +137,13 @@ func main() {
 	}
 
 	fmt.Println("Generate config.js...")
-	config := "var config = {"
+	config := "var config = {\n"
 	nodes := []string{`"start": {"node": "1_1", "cameraRotation": "0 0 0"}`}
 	for i := 0; i < len(nodeIds); i++ {
 		nodes = append(nodes, `"`+nodeIds[i]+`"`+`: {"annotations": [], "rotation": "0 0 0"}`)
 	}
-	config += strings.Join(nodes, ",")
-	config += "}"
+	config += strings.Join(nodes, ",\n")
+	config += "\n}"
 	configErr := ioutil.WriteFile(path.Join(OUTPUT_STATIC, "config.js"), []byte(config), 0644)
 	if configErr != nil {
 		fmt.Println(configErr)
